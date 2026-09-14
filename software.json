@@ -1,17 +1,26 @@
-[
-  {
-    "name": "pixez-flutter",
-    "repo": "Notsfsssf/pixez-flutter",
-    "pattern": "*",
-    "category": "P站工具",
-    "remote_dir": "/宅仓库/apps/bdpan; /移动/【软件工具】; /夸克",
-    "package_mode": "both",
-    "keep_versions": 3,
-    "zip_archive": true,
-    "zip_password": "",
-    "effective_password": "",
-    "last_sync_version": "0.9.109",
-    "last_sync_time": "2026-09-14 13:57:07",
-    "status": "success"
-  }
-]
+{
+    "notify": {
+        "enabled": true,
+        "url": "https:\/\/test.acg17.com\/wp-json\/alist-sync\/v1\/notify",
+        "secret": "d56Yzm8YB8vM6S2fTaTW8oo8oezOCuqh",
+        "strategy": "success_only",
+        "email": "1047134067@qq.com"
+    },
+    "softwares": [
+        {
+            "name": "pixez-flutter",
+            "repo": "Notsfsssf\/pixez-flutter",
+            "pattern": "*",
+            "category": "P站工具",
+            "remote_dir": "\/宅仓库\/apps\/bdpan; \/移动\/【软件工具】; \/夸克",
+            "package_mode": "both",
+            "keep_versions": 3,
+            "zip_archive": true,
+            "zip_password": "",
+            "effective_password": "",
+            "last_sync_version": "0.9.109",
+            "last_sync_time": "2026-09-14 13:57:07",
+            "status": "success"
+        }
+    ]
+}
