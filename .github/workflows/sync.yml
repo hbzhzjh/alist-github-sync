@@ -2,7 +2,6 @@ name: AList GitHub Auto Sync
 
 on:
   schedule:
-    # 每天北京时间 04:00 和 16:00 (UTC 20:00 和 08:00) 自动检查更新
     - cron: '0 8,20 * * *'
   workflow_dispatch: # 支持在 WordPress 后台或 GitHub 网页手动点击触发
   push:
@@ -52,4 +51,3 @@ jobs:
           else
             echo "没有状态变更，无需提交。"
           fi
-
