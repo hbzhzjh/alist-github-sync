@@ -605,10 +605,12 @@ def main():
             should_notify = False
             if notify_strategy == "success_only" and len(updated_items) > 0:
                 should_notify = True
+            elif notify_strategy == "failure_only" and len(failed_items) > 0:
+                should_notify = True
             elif notify_strategy == "all_events" and (len(updated_items) > 0 or len(failed_items) > 0):
                 should_notify = True
             else:
-                print(f"[通知] 本次无新版本或无异常，根据策略 ({notify_strategy}) 跳过邮件通知。")
+                print(f"[通知] 本次运行无需发信，根据策略 ({notify_strategy}) 跳过邮件通知。")
 
             if should_notify:
                 print(f"\n[通知] 正在向站点回调接口推送同步报告: {notify_url} ...")
