@@ -3,7 +3,7 @@
         "enabled": true,
         "url": "https:\/\/test.acg17.com\/wp-json\/alist-sync\/v1\/notify",
         "secret": "d56Yzm8YB8vM6S2fTaTW8oo8oezOCuqh",
-        "strategy": "success_only",
+        "strategy": "failure_only",
         "email": "675645921@qq.com"
     },
     "softwares": [
