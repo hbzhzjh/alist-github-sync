@@ -9,6 +9,7 @@ import os
 import sys
 import json
 import time
+import re
 import fnmatch
 import zipfile
 import tempfile
@@ -17,7 +18,7 @@ from datetime import datetime
 import requests
 
 # 引擎版本定义
-ENGINE_VERSION = "1.2.0"
+ENGINE_VERSION = "1.3.0"
 
 # ----------------------------------------------------------------------
 # 配置与环境变量获取
@@ -272,6 +273,7 @@ def sync_software_item(item: dict) -> tuple:
     name = item.get("name", "").strip()
     repo = item.get("repo", "").strip()
     pattern = item.get("pattern", "*").strip()
+    category = item.get("category", "").strip()
     # 兼容 remote_dir 与 alist_path 字段
     remote_dir = item.get("remote_dir") or item.get("alist_path", "")
     remote_dir = remote_dir.strip()
@@ -287,9 +289,29 @@ def sync_software_item(item: dict) -> tuple:
         print(f"[跳过] 软件项配置不完整: {name}")
         return False, None
 
+    # 解析多个网盘路径 (支持分号、逗号、换行分隔) 及 {category} 占位符
+    raw_dirs = [d.strip() for d in re.split(r'[;\n,]+', remote_dir) if d.strip()]
+    if not raw_dirs:
+        print(f"[跳过] 未指定有效的网盘存放路径: {name}")
+        return False, None
+
+    target_dirs = []
+    for d in raw_dirs:
+        if "{category}" in d:
+            if category:
+                d_resolved = d.replace("{category}", category)
+            else:
+                d_resolved = d.replace("/{category}", "").replace("{category}", "")
+        else:
+            d_resolved = d
+        d_resolved = "/" + d_resolved.strip("/")
+        if d_resolved not in target_dirs:
+            target_dirs.append(d_resolved)
+
     print(f"\n========================================================")
     print(f"正在检查: {name} ({repo})")
-    print(f"配置: 目录='{remote_dir}' | 匹配规则='{pattern}' | 打包模式='{pkg_mode}' | 加密={'是' if zip_pwd else '否'}")
+    print(f"配置: 分类='{category or '无'}' | 匹配规则='{pattern}' | 打包模式='{pkg_mode}' | 加密={'是' if zip_pwd else '否'}")
+    print(f"分发目标网盘 ({len(target_dirs)} 个): {target_dirs}")
     print(f"========================================================")
 
     release_info = gh_get_latest_release(repo)
@@ -303,17 +325,21 @@ def sync_software_item(item: dict) -> tuple:
         item["status"] = "error: tag为空"
         return False, None
 
-    # 计算驱动器名称（例如 /123Pan/Tools 提取 123Pan）
-    clean_parts = [p for p in remote_dir.strip("/").split("/") if p]
-    drive_name = clean_parts[0] if clean_parts else "AList"
+    # 构建驱动器名称映射
+    drive_names = []
+    for td in target_dirs:
+        clean_parts = [p for p in td.strip("/").split("/") if p]
+        dname = clean_parts[0] if clean_parts else "AList"
+        drive_names.append((dname, td))
 
     if tag_name == last_version:
         print(f"--> 当前已是最新版本 ({tag_name})，无需更新。")
         item["status"] = "success (最新)"
+        drives_map = {dname: True for dname, _ in drive_names}
         status_info = {
             "version": tag_name,
             "last_sync": item.get("last_sync_time") or datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            "drives": {drive_name: True}
+            "drives": drives_map
         }
         return True, (name, status_info)
 
@@ -380,35 +406,48 @@ def sync_software_item(item: dict) -> tuple:
             create_zip_archive(zip_save_path, downloaded_files, zip_pwd)
             files_to_upload.append((zip_file_name, zip_save_path))
 
-        # AList 目标存放目录: {remote_dir}/{name}/{tag_name}
-        remote_target_dir = f"{remote_dir.rstrip('/')}/{name}/{tag_name}"
+        # 依次多网盘分发上传与独立历史版本清理
+        drives_status = {}
+        any_success = False
 
-        upload_success_count = 0
-        for upload_name, upload_path in files_to_upload:
-            if alist_upload_file(upload_path, remote_target_dir, upload_name):
-                upload_success_count += 1
+        for dname, target_dir in drive_names:
+            remote_target_dir = f"{target_dir.rstrip('/')}/{name}/{tag_name}"
+            print(f"\n[多盘分发 ➔ {dname}] 正在上传至: {remote_target_dir} ...")
 
-        if upload_success_count == 0:
-            item["status"] = "error: AList上传失败"
+            upload_success_count = 0
+            for upload_name, upload_path in files_to_upload:
+                if alist_upload_file(upload_path, remote_target_dir, upload_name):
+                    upload_success_count += 1
+
+            if upload_success_count > 0:
+                print(f"[多盘分发 ➔ {dname}] 上传成功 ({upload_success_count}/{len(files_to_upload)}) 文件！")
+                drives_status[dname] = True
+                any_success = True
+
+                # 上传成功后，对该网盘独立执行历史版本轮转清理
+                try:
+                    rotate_old_versions(target_dir, name, keep_versions)
+                except Exception as e:
+                    print(f"[清理警告] 网盘 [{dname}] 历史版本轮转异常: {e}")
+            else:
+                print(f"[多盘分发 ➔ {dname}] 全部文件上传失败！")
+                drives_status[dname] = False
+
+        if not any_success:
+            item["status"] = "error: 所有网盘上传全败"
             return False, None
-
-        # 上传成功后，执行历史版本轮转清理
-        try:
-            rotate_old_versions(remote_dir, name, keep_versions)
-        except Exception as e:
-            print(f"[清理警告] 历史版本轮转异常: {e}")
 
         # 更新状态字段
         sync_time_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         item["last_sync_version"] = tag_name
         item["last_sync_time"] = sync_time_str
         item["status"] = "success"
-        print(f"[完成] 软件 '{name}' 成功同步至网盘目录: {remote_target_dir}")
+        print(f"\n[完成] 软件 '{name}' 多网盘同步完毕，各网盘状态: {drives_status}")
 
         status_info = {
             "version": tag_name,
             "last_sync": sync_time_str,
-            "drives": {drive_name: True}
+            "drives": drives_status
         }
         return True, (name, status_info)
 
