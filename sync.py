@@ -18,7 +18,7 @@ from datetime import datetime
 import requests
 
 # 引擎版本定义
-ENGINE_VERSION = "1.4.0"
+ENGINE_VERSION = "1.4.1"
 
 # ----------------------------------------------------------------------
 # 配置与环境变量获取
@@ -342,6 +342,15 @@ def sync_software_item(item: dict) -> tuple:
             print(f"[冷却检查跳过] 时间解析异常: {e}")
 
     release_info = gh_get_latest_release(repo)
+    if not release_info:
+        item["status"] = "error: 未能获取 Release"
+        return False, None
+
+    tag_name = release_info.get("tag_name", "").strip()
+    if not tag_name:
+        print(f"[警告] 仓库 {repo} 最新 Release 中未解析到 tag_name 版本标签")
+        item["status"] = "error: 版本标签为空"
+        return False, None
 
     if tag_name == last_version:
         print(f"--> 当前已是最新版本 ({tag_name})，无需更新。")
