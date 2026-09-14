@@ -76,14 +76,16 @@ def alist_upload_file(local_path: str, remote_dir: str, file_name: str) -> bool:
     upload_headers["Content-Type"] = "application/octet-stream"
 
     file_size = os.path.getsize(local_path)
-    print(f"[AList] 开始上传: {file_name} ({file_size / 1024 / 1024:.2f} MB) -> {remote_full_path}")
+    # 根据文件大小自适应计算超时时长：基础 300 秒 + 每 10MB 增加 60 秒，上限 1800 秒 (30分钟)
+    calc_timeout = max(300, min(1800, 300 + int(file_size / (1024 * 1024 * 10)) * 60))
+    print(f"[AList] 开始上传: {file_name} ({file_size / 1024 / 1024:.2f} MB) -> {remote_full_path} (超时上限: {calc_timeout}s)")
 
     # 采用重试机制
     max_retries = 3
     for attempt in range(1, max_retries + 1):
         try:
             with open(local_path, "rb") as f:
-                resp = requests.put(url, headers=upload_headers, data=f, timeout=300)
+                resp = requests.put(url, headers=upload_headers, data=f, timeout=calc_timeout)
             res = resp.json()
             if res.get("code") in [200, 0]:
                 print(f"[AList] 上传成功: {file_name}")
