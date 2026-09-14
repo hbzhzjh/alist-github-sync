@@ -18,7 +18,7 @@ from datetime import datetime
 import requests
 
 # 引擎版本定义
-ENGINE_VERSION = "1.3.0"
+ENGINE_VERSION = "1.3.1"
 
 # ----------------------------------------------------------------------
 # 配置与环境变量获取
