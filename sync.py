@@ -18,7 +18,7 @@ from datetime import datetime
 import requests
 
 # 引擎版本定义
-ENGINE_VERSION = "1.4.1"
+ENGINE_VERSION = "1.5.0"
 
 # ----------------------------------------------------------------------
 # 配置与环境变量获取
@@ -339,20 +339,23 @@ def sync_software_item(item: dict) -> tuple:
                     "last_sync": last_sync_time,
                     "drives": drives_map
                 }
-                return True, (name, status_info)
+                detail = {"type": "skipped", "name": name, "repo": repo, "reason": "处于冷却期"}
+                return True, (name, status_info), detail
         except Exception as e:
             print(f"[冷却检查跳过] 时间解析异常: {e}")
 
     release_info = gh_get_latest_release(repo)
     if not release_info:
         item["status"] = "error: 未能获取 Release"
-        return False, None
+        detail = {"type": "failed", "name": name, "repo": repo, "error": item["status"]}
+        return False, None, detail
 
     tag_name = release_info.get("tag_name", "").strip()
     if not tag_name:
         print(f"[警告] 仓库 {repo} 最新 Release 中未解析到 tag_name 版本标签")
         item["status"] = "error: 版本标签为空"
-        return False, None
+        detail = {"type": "failed", "name": name, "repo": repo, "error": item["status"]}
+        return False, None, detail
 
     if tag_name == last_version:
         print(f"--> 当前已是最新版本 ({tag_name})，无需更新。")
@@ -363,7 +366,8 @@ def sync_software_item(item: dict) -> tuple:
             "last_sync": item.get("last_sync_time") or datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "drives": drives_map
         }
-        return True, (name, status_info)
+        detail = {"type": "skipped", "name": name, "repo": repo, "reason": "已是最新版本"}
+        return True, (name, status_info), detail
 
     print(f"发现新版本: {tag_name} (原版本: {last_version or '无'})，开始同步流程...")
 
@@ -371,7 +375,8 @@ def sync_software_item(item: dict) -> tuple:
     if not assets:
         print(f"[警告] 该 Release 没有找到可下载的 Assets 附件")
         item["status"] = "warning: 资产列表为空"
-        return False, None
+        detail = {"type": "failed", "name": name, "repo": repo, "error": item["status"]}
+        return False, None, detail
 
     # 根据通配符规则筛选资产
     patterns = [p.strip() for p in pattern.split(";") if p.strip()]
@@ -389,7 +394,8 @@ def sync_software_item(item: dict) -> tuple:
     if not matched_assets:
         print(f"[警告] 没有匹配到规则 '{pattern}' 的文件。全部可用资产为: {[a.get('name') for a in assets]}")
         item["status"] = f"warning: 未匹配到资产"
-        return False, None
+        detail = {"type": "failed", "name": name, "repo": repo, "error": item["status"]}
+        return False, None, detail
 
     print(f"成功匹配到 {len(matched_assets)} 个待同步文件: {[a.get('name') for a in matched_assets]}")
 
@@ -409,7 +415,8 @@ def sync_software_item(item: dict) -> tuple:
 
         if not downloaded_files:
             item["status"] = "error: 资产下载全败"
-            return False, None
+            detail = {"type": "failed", "name": name, "repo": repo, "error": item["status"]}
+            return False, None, detail
 
         # 准备待上传的文件列表
         files_to_upload = []
@@ -457,7 +464,8 @@ def sync_software_item(item: dict) -> tuple:
 
         if not any_success:
             item["status"] = "error: 所有网盘上传全败"
-            return False, None
+            detail = {"type": "failed", "name": name, "repo": repo, "error": item["status"]}
+            return False, None, detail
 
         # 更新状态字段
         sync_time_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -471,12 +479,21 @@ def sync_software_item(item: dict) -> tuple:
             "last_sync": sync_time_str,
             "drives": drives_status
         }
-        return True, (name, status_info)
+        detail = {
+            "type": "updated",
+            "name": name,
+            "repo": repo,
+            "version": tag_name,
+            "previous_version": last_version or "初次同步",
+            "drives": drives_status
+        }
+        return True, (name, status_info), detail
 
 # ----------------------------------------------------------------------
 # 主入口
 # ----------------------------------------------------------------------
 def main():
+    start_time = time.time()
     print("====================================================")
     print("      AList GitHub Sync 自动化任务启动")
     print(f"      引擎版本: v{ENGINE_VERSION}")
@@ -498,9 +515,10 @@ def main():
         print(f"[错误] 解析 {SOFTWARE_JSON_PATH} 失败: {e}")
         sys.exit(1)
 
-    # 兼容 list 或 {"softwares": [...]}
+    # 兼容 list 或 {"notify": ..., "softwares": [...]}
     is_list_format = isinstance(raw_data, list)
     softwares = raw_data if is_list_format else raw_data.get("softwares", [])
+    notify_config = {} if is_list_format else raw_data.get("notify", {})
 
     if not softwares:
         print("[提示] software.json 中软件清单为空，无需同步。")
@@ -518,18 +536,33 @@ def main():
         except Exception:
             status_map = {}
 
-    any_updated = False
+    updated_items = []
+    skipped_items = []
+    failed_items = []
+
     for item in softwares:
         try:
-            res, status_tuple = sync_software_item(item)
-            if res:
-                any_updated = True
+            res, status_tuple, detail = sync_software_item(item)
             if status_tuple:
                 s_name, s_info = status_tuple
                 status_map[s_name] = s_info
+            
+            if detail.get("type") == "updated":
+                updated_items.append(detail)
+            elif detail.get("type") == "failed":
+                failed_items.append(detail)
+            else:
+                skipped_items.append(detail)
         except Exception as err:
             print(f"[异常] 同步软件 {item.get('name')} 时发生未捕获异常: {err}")
-            item["status"] = f"error: {str(err)[:50]}"
+            err_msg = f"error: {str(err)[:50]}"
+            item["status"] = err_msg
+            failed_items.append({
+                "type": "failed",
+                "name": item.get("name", "未知"),
+                "repo": item.get("repo", ""),
+                "error": err_msg
+            })
 
     # 将最新的状态写回 software.json
     try:
@@ -552,7 +585,70 @@ def main():
     except Exception as e:
         print(f"[写入错误] 无法保存状态到 {status_path}: {e}")
 
-    print("\n所有同步检查已完成！")
+    elapsed_time = round(time.time() - start_time, 1)
+    print(f"\n====================================================")
+    print(f"同步检查总结: 总数 {len(softwares)} | 更新 {len(updated_items)} | 跳过 {len(skipped_items)} | 失败 {len(failed_items)}")
+    print(f"总耗时: {elapsed_time} 秒")
+    print(f"====================================================")
+
+    # ------------------------------------------------------------------
+    # 同步结果邮件通知推送 (基于 WordPress REST API 与原生 SMTP)
+    # ------------------------------------------------------------------
+    if notify_config and notify_config.get("enabled"):
+        notify_url = str(notify_config.get("url", "")).strip()
+        notify_secret = str(notify_config.get("secret", "")).strip()
+        notify_strategy = str(notify_config.get("strategy", "success_only")).strip()
+
+        if not notify_url or not notify_secret:
+            print("[通知] 邮件通知配置不全 (缺失 url 或 secret)，已跳过发信。")
+        else:
+            should_notify = False
+            if notify_strategy == "success_only" and len(updated_items) > 0:
+                should_notify = True
+            elif notify_strategy == "all_events" and (len(updated_items) > 0 or len(failed_items) > 0):
+                should_notify = True
+            else:
+                print(f"[通知] 本次无新版本或无异常，根据策略 ({notify_strategy}) 跳过邮件通知。")
+
+            if should_notify:
+                print(f"\n[通知] 正在向站点回调接口推送同步报告: {notify_url} ...")
+                run_id = os.environ.get("GITHUB_RUN_ID", "")
+                gh_repo = os.environ.get("GITHUB_REPOSITORY", "")
+                run_url = f"https://github.com/{gh_repo}/actions/runs/{run_id}" if gh_repo and run_id else ""
+
+                notify_payload = {
+                    "event": "sync_complete" if not failed_items else "sync_warning",
+                    "secret": notify_secret,
+                    "run_id": run_id,
+                    "run_url": run_url,
+                    "repository": gh_repo,
+                    "trigger_actor": os.environ.get("GITHUB_ACTOR", ""),
+                    "duration_seconds": elapsed_time,
+                    "summary": {
+                        "total": len(softwares),
+                        "updated": len(updated_items),
+                        "skipped": len(skipped_items),
+                        "failed": len(failed_items)
+                    },
+                    "updated_details": updated_items,
+                    "failed_details": failed_items
+                }
+
+                try:
+                    headers = {
+                        "Content-Type": "application/json",
+                        "X-AList-Sync-Secret": notify_secret,
+                        "User-Agent": "AList-GitHub-Sync-Action/1.5.0"
+                    }
+                    resp = requests.post(notify_url, json=notify_payload, headers=headers, timeout=20)
+                    if resp.status_code == 200:
+                        print(f"[通知] 邮件推送成功！站点返回: {resp.text}")
+                    else:
+                        print(f"[通知警告] 站点接口响应非 200 (HTTP {resp.status_code}): {resp.text}")
+                except Exception as ne:
+                    print(f"[通知警告] 发送通知网络异常: {ne}")
+
+    print("\n所有同步任务已处理完成！")
 
 
 if __name__ == "__main__":
