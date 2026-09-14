@@ -16,6 +16,9 @@ import urllib.parse
 from datetime import datetime
 import requests
 
+# 引擎版本定义
+ENGINE_VERSION = "1.2.0"
+
 # ----------------------------------------------------------------------
 # 配置与环境变量获取
 # ----------------------------------------------------------------------
@@ -415,6 +418,7 @@ def sync_software_item(item: dict) -> tuple:
 def main():
     print("====================================================")
     print("      AList GitHub Sync 自动化任务启动")
+    print(f"      引擎版本: v{ENGINE_VERSION}")
     print(f"      时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("====================================================")
 
