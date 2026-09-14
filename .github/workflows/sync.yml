@@ -1,0 +1,56 @@
+name: AList GitHub Auto Sync
+
+on:
+  schedule:
+    # 每天北京时间 04:00 和 16:00 (UTC 20:00 和 08:00) 自动检查更新
+    - cron: '0 8,20 * * *'
+  workflow_dispatch: # 支持在 WordPress 后台或 GitHub 网页手动点击触发
+  push:
+    paths:
+      - 'software.json' # 当软件清单更新提交时触发同步
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # 允许回写更新后的 software.json 状态
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests pyzipper
+
+      - name: Run AList Sync Engine
+        env:
+          ALIST_URL: ${{ secrets.ALIST_URL }}
+          ALIST_TOKEN: ${{ secrets.ALIST_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_ZIP_PASSWORD: ${{ secrets.DEFAULT_ZIP_PASSWORD }}
+          SOFTWARE_JSON_PATH: 'software.json'
+        run: |
+          python sync.py
+
+      - name: Commit and Push Status Updates
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action Bot"
+          if [[ -n $(git status -s software.json sync_status.json) ]]; then
+            git add software.json sync_status.json
+            git commit -m "chore(sync): update software release and drive status [skip ci]"
+            git push
+          else
+            echo "没有状态变更，无需提交。"
+          fi
+
