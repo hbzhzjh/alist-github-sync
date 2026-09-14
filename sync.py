@@ -18,7 +18,7 @@ from datetime import datetime
 import requests
 
 # 引擎版本定义
-ENGINE_VERSION = "1.3.1"
+ENGINE_VERSION = "1.4.0"
 
 # ----------------------------------------------------------------------
 # 配置与环境变量获取
@@ -314,23 +314,34 @@ def sync_software_item(item: dict) -> tuple:
     print(f"分发目标网盘 ({len(target_dirs)} 个): {target_dirs}")
     print(f"========================================================")
 
-    release_info = gh_get_latest_release(repo)
-    if not release_info:
-        item["status"] = "error: 无有效Release"
-        return False, None
-
-    tag_name = release_info.get("tag_name", "").strip()
-    if not tag_name:
-        print(f"[错误] 无法获取 tag_name")
-        item["status"] = "error: tag为空"
-        return False, None
-
     # 构建驱动器名称映射
     drive_names = []
     for td in target_dirs:
         clean_parts = [p for p in td.strip("/").split("/") if p]
         dname = clean_parts[0] if clean_parts else "AList"
         drive_names.append((dname, td))
+
+    # 独立检测更新间隔 (冷却期) 判断
+    check_interval = int(item.get("check_interval_hours", 0) or 0)
+    last_sync_time = item.get("last_sync_time", "")
+    if check_interval > 0 and last_sync_time and last_version:
+        try:
+            last_dt = datetime.strptime(last_sync_time, "%Y-%m-%d %H:%M:%S")
+            diff_hours = (datetime.now() - last_dt).total_seconds() / 3600.0
+            if diff_hours < check_interval:
+                print(f"--> 该软件设置了 {check_interval} 小时独立检测间隔，距离上次检测仅 {diff_hours:.1f} 小时，处于冷却期，快速跳过。")
+                item["status"] = f"success (冷却中: 剩 {check_interval - diff_hours:.1f}h)"
+                drives_map = {dname: True for dname, _ in drive_names}
+                status_info = {
+                    "version": last_version,
+                    "last_sync": last_sync_time,
+                    "drives": drives_map
+                }
+                return True, (name, status_info)
+        except Exception as e:
+            print(f"[冷却检查跳过] 时间解析异常: {e}")
+
+    release_info = gh_get_latest_release(repo)
 
     if tag_name == last_version:
         print(f"--> 当前已是最新版本 ({tag_name})，无需更新。")
