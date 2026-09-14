@@ -2,7 +2,7 @@ name: AList GitHub Auto Sync
 
 on:
   schedule:
-    - cron: '0 8 */3 * *'
+    - cron: '0 8,20 * * *'
   workflow_dispatch: # 支持在 WordPress 后台或 GitHub 网页手动点击触发
   push:
     paths:
