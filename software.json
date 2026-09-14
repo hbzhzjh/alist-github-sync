@@ -1,0 +1,14 @@
+[
+    {
+        "name": "pixez-flutter",
+        "repo": "Notsfsssf\/pixez-flutter",
+        "pattern": "*",
+        "category": "P站工具",
+        "remote_dir": "\/宅仓库\/apps\/bdpan; \/移动\/【软件工具】; \/夸克",
+        "package_mode": "both",
+        "keep_versions": 3,
+        "zip_archive": true,
+        "zip_password": "",
+        "effective_password": ""
+    }
+]
