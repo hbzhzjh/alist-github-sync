@@ -7,5 +7,14 @@
       "移动": true,
       "夸克": true
     }
+  },
+  "Pixiv-Shaft": {
+    "version": "v4.9.4",
+    "last_sync": "2026-09-25 14:19:24",
+    "drives": {
+      "宅仓库": true,
+      "夸克": true,
+      "移动": true
+    }
   }
 }
