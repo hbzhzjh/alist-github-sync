@@ -271,14 +271,16 @@ def create_zip_archive(zip_save_path: str, files_list: list, password: str = "")
 # ----------------------------------------------------------------------
 # 核心同步流程
 # ----------------------------------------------------------------------
-def sync_software_item(item: dict) -> tuple:
+def sync_software_item(item: dict, default_remote_dir: str = "") -> tuple:
     name = item.get("name", "").strip()
     repo = item.get("repo", "").strip()
     pattern = item.get("pattern", "*").strip()
     category = item.get("category", "").strip()
-    # 兼容 remote_dir 与 alist_path 字段
+    # 兼容 remote_dir 与 alist_path 字段，若未指定则继承全局默认网盘路径
     remote_dir = item.get("remote_dir") or item.get("alist_path", "")
     remote_dir = remote_dir.strip()
+    if not remote_dir:
+        remote_dir = (default_remote_dir or os.environ.get("DEFAULT_REMOTE_DIR", "")).strip()
     pkg_mode = item.get("package_mode", "raw").strip()
     keep_versions = int(item.get("keep_versions", 3))
     last_version = item.get("last_sync_version", "").strip()
@@ -288,7 +290,7 @@ def sync_software_item(item: dict) -> tuple:
     zip_pwd = zip_pwd.strip()
 
     if not name or not repo or not remote_dir:
-        print(f"[跳过] 软件项配置不完整: {name}")
+        print(f"[跳过] 软件项配置不完整 (缺失名称/仓库或网盘路径): {name}")
         return False, None
 
     # 解析多个网盘路径 (支持分号、逗号、换行分隔) 及 {category} 占位符
@@ -515,16 +517,20 @@ def main():
         print(f"[错误] 解析 {SOFTWARE_JSON_PATH} 失败: {e}")
         sys.exit(1)
 
-    # 兼容 list 或 {"notify": ..., "softwares": [...]}
+    # 兼容 list 或 {"notify": ..., "softwares": [...], "default_remote_dir": ...}
     is_list_format = isinstance(raw_data, list)
     softwares = raw_data if is_list_format else raw_data.get("softwares", [])
     notify_config = {} if is_list_format else raw_data.get("notify", {})
+    global_default_remote_dir = "" if is_list_format else raw_data.get("default_remote_dir", "")
+    global_default_remote_dir = (global_default_remote_dir or "").strip()
 
     if not softwares:
         print("[提示] software.json 中软件清单为空，无需同步。")
         sys.exit(0)
 
     print(f"共发现 {len(softwares)} 个待监控的软件项目。")
+    if global_default_remote_dir:
+        print(f"[全局默认网盘路径] {global_default_remote_dir}")
 
     # 读取现有的 sync_status.json
     status_path = "sync_status.json"
@@ -542,7 +548,7 @@ def main():
 
     for item in softwares:
         try:
-            res, status_tuple, detail = sync_software_item(item)
+            res, status_tuple, detail = sync_software_item(item, default_remote_dir=global_default_remote_dir)
             if status_tuple:
                 s_name, s_info = status_tuple
                 status_map[s_name] = s_info
