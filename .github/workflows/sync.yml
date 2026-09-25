@@ -19,6 +19,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -47,7 +48,16 @@ jobs:
           if [[ -n $(git status -s software.json sync_status.json) ]]; then
             git add software.json sync_status.json
             git commit -m "chore(sync): update software release and drive status [skip ci]"
-            git push
+            for i in 1 2 3 4 5; do
+              git fetch origin main
+              git rebase origin/main || { git rebase --abort; git merge -X ours origin/main --no-edit -m "chore: merge remote changes [skip ci]"; }
+              if git push origin main; then
+                echo "成功推送状态更新至 GitHub 仓库！"
+                break
+              fi
+              echo "推送被拒或遇到并发冲突，等待 2 秒后重试第 $i 次..."
+              sleep 2
+            done
           else
             echo "没有状态变更，无需提交。"
           fi
