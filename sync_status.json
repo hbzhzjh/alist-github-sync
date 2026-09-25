@@ -16,5 +16,32 @@
       "夸克": true,
       "移动": true
     }
+  },
+  "pixiv-viewer-app": {
+    "version": "v1.37.5",
+    "last_sync": "2026-09-25 18:51:27",
+    "drives": {
+      "宅仓库": true,
+      "夸克": true,
+      "移动": true
+    }
+  },
+  "cojibrowser": {
+    "version": "1.8.5",
+    "last_sync": "2026-09-25 18:56:13",
+    "drives": {
+      "宅仓库": true,
+      "夸克": true,
+      "移动": true
+    }
+  },
+  "AniCh": {
+    "version": "1.5.25",
+    "last_sync": "2026-09-25 20:26:16",
+    "drives": {
+      "宅仓库": true,
+      "夸克": true,
+      "移动": true
+    }
   }
 }
