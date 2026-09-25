@@ -20,10 +20,27 @@
             "zip_archive": true,
             "zip_password": "",
             "effective_password": "",
+            "disguise_mode": "default",
+            "effective_disguise_mode": "none",
             "check_interval_hours": 0,
             "last_sync_version": "0.9.109",
             "last_sync_time": "2026-09-25 12:28:10",
             "status": "success (最新)"
+        },
+        {
+            "name": "Pixiv-Shaft",
+            "repo": "CeuiLiSA\/Pixiv-Shaft",
+            "pattern": "*",
+            "category": "系统工具",
+            "remote_dir": "\/宅仓库\/apps\/bdpan\/【软件分享】; \/夸克\/软件分享; \/移动\/【软件工具】",
+            "package_mode": "both",
+            "keep_versions": 3,
+            "zip_archive": true,
+            "zip_password": "",
+            "effective_password": "",
+            "disguise_mode": "default",
+            "effective_disguise_mode": "none",
+            "check_interval_hours": 0
         }
     ]
 }
