@@ -268,10 +268,37 @@ def create_zip_archive(zip_save_path: str, files_list: list, password: str = "")
             zf.write(fpath, arcname=fname)
     return True
 
+def split_file_to_volumes(file_path: str, max_chunk_size: int = 50 * 1024 * 1024) -> list:
+    """将文件切分成分卷 (例如 .zip.001, .zip.002 ...)，若小于分卷大小则强制对半分卷阻断网盘在线解压"""
+    file_size = os.path.getsize(file_path)
+    if file_size <= max_chunk_size:
+        chunk_size = max(1024, file_size // 2)
+    else:
+        chunk_size = max_chunk_size
+
+    part_num = 1
+    part_files = []
+    base_dir = os.path.dirname(file_path)
+    base_name = os.path.basename(file_path)
+
+    with open(file_path, "rb") as src:
+        while True:
+            chunk = src.read(chunk_size)
+            if not chunk:
+                break
+            part_name = f"{base_name}.{part_num:03d}"
+            part_path = os.path.join(base_dir, part_name)
+            with open(part_path, "wb") as dst:
+                dst.write(chunk)
+            part_files.append((part_name, part_path))
+            part_num += 1
+
+    return part_files
+
 # ----------------------------------------------------------------------
 # 核心同步流程
 # ----------------------------------------------------------------------
-def sync_software_item(item: dict, default_remote_dir: str = "") -> tuple:
+def sync_software_item(item: dict, default_remote_dir: str = "", default_disguise_mode: str = "none") -> tuple:
     name = item.get("name", "").strip()
     repo = item.get("repo", "").strip()
     pattern = item.get("pattern", "*").strip()
@@ -428,14 +455,42 @@ def sync_software_item(item: dict, default_remote_dir: str = "") -> tuple:
                 files_to_upload.append((fname, fpath))
 
         if pkg_mode in ["both", "zip_only"]:
-            # 生成归档 ZIP 文件
+            # 生成归档 ZIP 文件并根据防在线解压策略处理
             clean_tag = tag_name.replace("/", "_")
-            zip_file_name = f"{name}_{clean_tag}.zip"
-            zip_save_path = os.path.join(tmp_dir, zip_file_name)
-            print(f"[打包] 正在将文件压缩打包为: {zip_file_name} ...")
+            raw_disguise = item.get("disguise_mode") or "default"
+            effective_disguise = item.get("effective_disguise_mode") or (default_disguise_mode if raw_disguise == "default" else raw_disguise)
+            effective_disguise = (effective_disguise or "none").strip()
 
-            create_zip_archive(zip_save_path, downloaded_files, zip_pwd)
-            files_to_upload.append((zip_file_name, zip_save_path))
+            base_zip_name = f"{name}_{clean_tag}.zip"
+            base_zip_path = os.path.join(tmp_dir, base_zip_name)
+            print(f"[打包] 正在将文件压缩打包为: {base_zip_name} (防在线解压策略: {effective_disguise}) ...")
+
+            create_zip_archive(base_zip_path, downloaded_files, zip_pwd)
+
+            if effective_disguise == "zip1":
+                # 策略 1：追加 .zip1 假扩展名 (防网盘识别为压缩包)
+                disguise_name = f"{name}_{clean_tag}.zip1"
+                disguise_path = os.path.join(tmp_dir, disguise_name)
+                os.rename(base_zip_path, disguise_path)
+                print(f"[防在线解压] 已附加 .zip1 假扩展名: {disguise_name}")
+                files_to_upload.append((disguise_name, disguise_path))
+            elif effective_disguise == "zip_txt":
+                # 策略 2：带操作提示的假扩展名 .zip.txt
+                disguise_name = f"{name}_{clean_tag}[下载后删去末尾txt].zip.txt"
+                disguise_path = os.path.join(tmp_dir, disguise_name)
+                os.rename(base_zip_path, disguise_path)
+                print(f"[防在线解压] 已附加带提示假扩展名: {disguise_name}")
+                files_to_upload.append((disguise_name, disguise_path))
+            elif effective_disguise == "split":
+                # 策略 3：分卷切分保护 (.zip.001 / .zip.002，阻断任何网盘在线解压)
+                print(f"[防在线解压] 正在将压缩包切分为分卷 (.zip.001 / .zip.002)...")
+                volume_files = split_file_to_volumes(base_zip_path)
+                for vname, vpath in volume_files:
+                    files_to_upload.append((vname, vpath))
+                print(f"[防在线解压] 成功生成 {len(volume_files)} 个分卷文件: {[v[0] for v in volume_files]}")
+            else:
+                # 默认标准 .zip 格式
+                files_to_upload.append((base_zip_name, base_zip_path))
 
         # 依次多网盘分发上传与独立历史版本清理
         drives_status = {}
@@ -523,6 +578,8 @@ def main():
     notify_config = {} if is_list_format else raw_data.get("notify", {})
     global_default_remote_dir = "" if is_list_format else raw_data.get("default_remote_dir", "")
     global_default_remote_dir = (global_default_remote_dir or "").strip()
+    global_default_disguise_mode = "" if is_list_format else raw_data.get("default_disguise_mode", "none")
+    global_default_disguise_mode = (global_default_disguise_mode or "none").strip()
 
     if not softwares:
         print("[提示] software.json 中软件清单为空，无需同步。")
@@ -531,6 +588,8 @@ def main():
     print(f"共发现 {len(softwares)} 个待监控的软件项目。")
     if global_default_remote_dir:
         print(f"[全局默认网盘路径] {global_default_remote_dir}")
+    if global_default_disguise_mode and global_default_disguise_mode != "none":
+        print(f"[全局默认防解压策略] {global_default_disguise_mode}")
 
     # 读取现有的 sync_status.json
     status_path = "sync_status.json"
@@ -548,7 +607,11 @@ def main():
 
     for item in softwares:
         try:
-            res, status_tuple, detail = sync_software_item(item, default_remote_dir=global_default_remote_dir)
+            res, status_tuple, detail = sync_software_item(
+                item,
+                default_remote_dir=global_default_remote_dir,
+                default_disguise_mode=global_default_disguise_mode
+            )
             if status_tuple:
                 s_name, s_info = status_tuple
                 status_map[s_name] = s_info
