@@ -7,6 +7,7 @@
         "email": "675645921@qq.com"
     },
     "default_remote_dir": "\/宅仓库\/apps\/bdpan\/【软件分享】; \/夸克\/软件分享; \/移动\/【软件工具】",
+    "default_disguise_mode": "none",
     "softwares": [
         {
             "name": "pixez-flutter",
