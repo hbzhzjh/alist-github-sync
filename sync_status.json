@@ -1,74 +1,83 @@
 {
-  "pixez-flutter": {
-    "version": "0.9.109",
-    "last_sync": "2026-09-25 12:28:10",
-    "drives": {
-      "宅仓库": true,
-      "移动": true,
-      "夸克": true
+    "pixez-flutter": {
+        "version": "0.9.109",
+        "last_sync": "2026-09-25 12:28:10",
+        "drives": {
+            "宅仓库": true,
+            "移动": true,
+            "夸克": true
+        }
+    },
+    "Pixiv-Shaft": {
+        "version": "v4.9.4",
+        "last_sync": "2026-09-25 14:19:24",
+        "drives": {
+            "宅仓库": true,
+            "夸克": true,
+            "移动": true
+        }
+    },
+    "pixiv-viewer-app": {
+        "version": "v1.37.5",
+        "last_sync": "2026-09-25 18:51:27",
+        "drives": {
+            "宅仓库": true,
+            "夸克": true,
+            "移动": true
+        }
+    },
+    "cojibrowser": {
+        "version": "1.8.5",
+        "last_sync": "2026-09-25 18:56:13",
+        "drives": {
+            "宅仓库": true,
+            "夸克": true,
+            "移动": true
+        }
+    },
+    "AniCh": {
+        "version": "1.5.25",
+        "last_sync": "2026-09-25 20:26:16",
+        "drives": {
+            "宅仓库": true,
+            "夸克": true,
+            "移动": true
+        }
+    },
+    "PixivBatchDownloader": {
+        "version": "v19.4.1",
+        "last_sync": "2026-09-26 03:11:30",
+        "drives": {
+            "宅仓库": true,
+            "夸克": true,
+            "移动": true
+        }
+    },
+    "animeko": {
+        "version": "v6.1.0",
+        "last_sync": "2026-09-26 06:27:41",
+        "drives": {
+            "宅仓库": true,
+            "夸克": true,
+            "移动": true
+        }
+    },
+    "Kazumi": {
+        "version": "2.3.6",
+        "last_sync": "2026-09-26 12:03:35",
+        "drives": {
+            "宅仓库": true,
+            "夸克": true,
+            "移动": true
+        }
+    },
+    "aura-tab": {
+        "version": "v3.5.3",
+        "last_sync": "2026-09-27 00:30:23",
+        "drives": {
+            "宅仓库": true,
+            "夸克": true,
+            "移动": true
+        }
     }
-  },
-  "Pixiv-Shaft": {
-    "version": "v4.9.4",
-    "last_sync": "2026-09-25 14:19:24",
-    "drives": {
-      "宅仓库": true,
-      "夸克": true,
-      "移动": true
-    }
-  },
-  "pixiv-viewer-app": {
-    "version": "v1.37.5",
-    "last_sync": "2026-09-25 18:51:27",
-    "drives": {
-      "宅仓库": true,
-      "夸克": true,
-      "移动": true
-    }
-  },
-  "cojibrowser": {
-    "version": "1.8.5",
-    "last_sync": "2026-09-25 18:56:13",
-    "drives": {
-      "宅仓库": true,
-      "夸克": true,
-      "移动": true
-    }
-  },
-  "AniCh": {
-    "version": "1.5.25",
-    "last_sync": "2026-09-25 20:26:16",
-    "drives": {
-      "宅仓库": true,
-      "夸克": true,
-      "移动": true
-    }
-  },
-  "PixivBatchDownloader": {
-    "version": "v19.4.1",
-    "last_sync": "2026-09-26 03:11:30",
-    "drives": {
-      "宅仓库": true,
-      "夸克": true,
-      "移动": true
-    }
-  },
-  "animeko": {
-    "version": "v6.1.0",
-    "last_sync": "2026-09-26 06:27:41",
-    "drives": {
-      "宅仓库": true,
-      "夸克": true,
-      "移动": true
-    }
-  },
-  "Kazumi": {
-    "version": "2.3.6",
-    "last_sync": "2026-09-26 12:03:35",
-    "drives": {
-      "宅仓库": true,
-      "夸克": true,
-      "移动": true
-    }
-  }
 }
