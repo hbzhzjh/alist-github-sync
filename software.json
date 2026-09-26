@@ -23,6 +23,7 @@
             "disguise_mode": "default",
             "effective_disguise_mode": "none",
             "check_interval_hours": 0,
+            "include_prerelease": false,
             "last_sync_version": "0.9.109",
             "last_sync_time": "2026-09-25 12:28:10",
             "status": "success (最新)"
@@ -41,6 +42,7 @@
             "disguise_mode": "default",
             "effective_disguise_mode": "none",
             "check_interval_hours": 0,
+            "include_prerelease": false,
             "last_sync_version": "v4.9.4",
             "last_sync_time": "2026-09-25 14:19:24",
             "status": "success (最新)"
@@ -59,6 +61,7 @@
             "disguise_mode": "default",
             "effective_disguise_mode": "none",
             "check_interval_hours": 0,
+            "include_prerelease": false,
             "last_sync_version": "v1.37.5",
             "last_sync_time": "2026-09-25 18:51:27",
             "status": "success (最新)"
@@ -77,6 +80,7 @@
             "disguise_mode": "default",
             "effective_disguise_mode": "none",
             "check_interval_hours": 0,
+            "include_prerelease": false,
             "last_sync_version": "1.8.5",
             "last_sync_time": "2026-09-25 18:56:13",
             "status": "success (最新)"
@@ -95,6 +99,7 @@
             "disguise_mode": "default",
             "effective_disguise_mode": "none",
             "check_interval_hours": 0,
+            "include_prerelease": false,
             "last_sync_version": "1.5.25",
             "last_sync_time": "2026-09-25 20:26:16",
             "status": "success (最新)"
@@ -113,6 +118,7 @@
             "disguise_mode": "default",
             "effective_disguise_mode": "none",
             "check_interval_hours": 0,
+            "include_prerelease": false,
             "last_sync_version": "v19.4.1",
             "last_sync_time": "2026-09-26 03:11:30",
             "status": "success (最新)"
@@ -131,6 +137,7 @@
             "disguise_mode": "default",
             "effective_disguise_mode": "none",
             "check_interval_hours": 0,
+            "include_prerelease": false,
             "last_sync_version": "v6.1.0",
             "last_sync_time": "2026-09-26 06:27:41",
             "status": "success (最新)"
@@ -148,7 +155,8 @@
             "effective_password": "",
             "disguise_mode": "default",
             "effective_disguise_mode": "none",
-            "check_interval_hours": 0
+            "check_interval_hours": 0,
+            "include_prerelease": false
         },
         {
             "name": "Motrix",
@@ -163,7 +171,8 @@
             "effective_password": "",
             "disguise_mode": "default",
             "effective_disguise_mode": "none",
-            "check_interval_hours": 0
+            "check_interval_hours": 0,
+            "include_prerelease": false
         },
         {
             "name": "mangayomi",
@@ -178,7 +187,8 @@
             "effective_password": "",
             "disguise_mode": "default",
             "effective_disguise_mode": "none",
-            "check_interval_hours": 0
+            "check_interval_hours": 0,
+            "include_prerelease": false
         },
         {
             "name": "Ventoy",
@@ -193,7 +203,8 @@
             "effective_password": "",
             "disguise_mode": "default",
             "effective_disguise_mode": "none",
-            "check_interval_hours": 0
+            "check_interval_hours": 0,
+            "include_prerelease": false
         },
         {
             "name": "bilimiao2",
@@ -208,7 +219,8 @@
             "effective_password": "",
             "disguise_mode": "default",
             "effective_disguise_mode": "none",
-            "check_interval_hours": 0
+            "check_interval_hours": 0,
+            "include_prerelease": false
         },
         {
             "name": "BewlyCat",
@@ -223,7 +235,8 @@
             "effective_password": "",
             "disguise_mode": "default",
             "effective_disguise_mode": "none",
-            "check_interval_hours": 0
+            "check_interval_hours": 0,
+            "include_prerelease": false
         },
         {
             "name": "BilibiliSponsorBlock",
@@ -238,7 +251,8 @@
             "effective_password": "",
             "disguise_mode": "default",
             "effective_disguise_mode": "none",
-            "check_interval_hours": 0
+            "check_interval_hours": 0,
+            "include_prerelease": false
         },
         {
             "name": "mpv.net-DW",
@@ -253,7 +267,8 @@
             "effective_password": "",
             "disguise_mode": "default",
             "effective_disguise_mode": "none",
-            "check_interval_hours": 0
+            "check_interval_hours": 0,
+            "include_prerelease": false
         },
         {
             "name": "video2x",
@@ -268,7 +283,8 @@
             "effective_password": "",
             "disguise_mode": "default",
             "effective_disguise_mode": "none",
-            "check_interval_hours": 0
+            "check_interval_hours": 0,
+            "include_prerelease": false
         },
         {
             "name": "anilog-tracker",
@@ -283,7 +299,8 @@
             "effective_password": "",
             "disguise_mode": "default",
             "effective_disguise_mode": "none",
-            "check_interval_hours": 0
+            "check_interval_hours": 0,
+            "include_prerelease": false
         },
         {
             "name": "AnymeX",
@@ -298,7 +315,8 @@
             "effective_password": "",
             "disguise_mode": "default",
             "effective_disguise_mode": "none",
-            "check_interval_hours": 0
+            "check_interval_hours": 0,
+            "include_prerelease": false
         },
         {
             "name": "Zangetsu",
@@ -313,7 +331,8 @@
             "effective_password": "",
             "disguise_mode": "default",
             "effective_disguise_mode": "none",
-            "check_interval_hours": 0
+            "check_interval_hours": 0,
+            "include_prerelease": false
         },
         {
             "name": "koharu",
@@ -328,7 +347,8 @@
             "effective_password": "",
             "disguise_mode": "default",
             "effective_disguise_mode": "none",
-            "check_interval_hours": 0
+            "check_interval_hours": 0,
+            "include_prerelease": false
         },
         {
             "name": "KikoPlay",
@@ -343,7 +363,8 @@
             "effective_password": "",
             "disguise_mode": "default",
             "effective_disguise_mode": "none",
-            "check_interval_hours": 0
+            "check_interval_hours": 0,
+            "include_prerelease": false
         },
         {
             "name": "DLSS5-Swapper",
@@ -358,7 +379,24 @@
             "effective_password": "",
             "disguise_mode": "default",
             "effective_disguise_mode": "none",
-            "check_interval_hours": 0
+            "check_interval_hours": 0,
+            "include_prerelease": false
+        },
+        {
+            "name": "bili-music",
+            "repo": "Jmiao11\/bili-music",
+            "pattern": "*",
+            "category": "系统工具",
+            "remote_dir": "\/宅仓库\/apps\/bdpan\/【软件分享】; \/夸克\/软件分享; \/移动\/【软件工具】",
+            "package_mode": "raw",
+            "keep_versions": 3,
+            "zip_archive": false,
+            "zip_password": "",
+            "effective_password": "",
+            "disguise_mode": "default",
+            "effective_disguise_mode": "none",
+            "check_interval_hours": 0,
+            "include_prerelease": false
         }
     ]
 }
