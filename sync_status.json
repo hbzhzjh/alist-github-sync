@@ -43,5 +43,14 @@
       "夸克": true,
       "移动": true
     }
+  },
+  "PixivBatchDownloader": {
+    "version": "v19.4.1",
+    "last_sync": "2026-09-26 03:11:30",
+    "drives": {
+      "宅仓库": true,
+      "夸克": true,
+      "移动": true
+    }
   }
 }
