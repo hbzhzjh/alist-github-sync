@@ -18,7 +18,7 @@ from datetime import datetime
 import requests
 
 # 引擎版本定义
-ENGINE_VERSION = "1.7.0"
+ENGINE_VERSION = "1.7.1"
 
 # ----------------------------------------------------------------------
 # 配置与环境变量获取
@@ -76,12 +76,13 @@ def alist_upload_file(local_path: str, remote_dir: str, file_name: str) -> bool:
     upload_headers["Content-Type"] = "application/octet-stream"
 
     file_size = os.path.getsize(local_path)
-    # 根据文件大小自适应计算超时时长：基础 300 秒 + 每 10MB 增加 60 秒，上限 1800 秒 (30分钟)
-    calc_timeout = max(300, min(1800, 300 + int(file_size / (1024 * 1024 * 10)) * 60))
+    # 科学合理超时：基础 40 秒 + 每 10MB 增加 10 秒，封顶 180 秒 (3分钟)
+    # 30MB 仅需 70 秒超时；正常传输 5~10 秒即完成，遇接口死锁快速释放，杜绝单文件消耗十几分钟
+    calc_timeout = max(40, min(180, 40 + int(file_size / (1024 * 1024 * 10)) * 10))
     print(f"[AList] 开始上传: {file_name} ({file_size / 1024 / 1024:.2f} MB) -> {remote_full_path} (超时上限: {calc_timeout}s)")
 
-    # 采用重试机制
-    max_retries = 3
+    # 采用快速重试机制 (最多 2 次，重试间隔 2 秒)
+    max_retries = 2
     for attempt in range(1, max_retries + 1):
         try:
             with open(local_path, "rb") as f:
@@ -94,7 +95,7 @@ def alist_upload_file(local_path: str, remote_dir: str, file_name: str) -> bool:
                 print(f"[AList] 上传失败 (第 {attempt} 次): {res.get('message')}")
         except Exception as e:
             print(f"[AList] 上传异常 (第 {attempt} 次): {e}")
-        time.sleep(3)
+        time.sleep(2)
 
     return False
 
@@ -385,6 +386,20 @@ def sync_software_item(item: dict, default_remote_dir: str = "", default_disguis
         dname = clean_parts[0] if clean_parts else "AList"
         drive_names.append((dname, td))
 
+    # 检查是否配置为本地服务器直传通道 (若为 local，云端直接跳过，零消耗 Actions 额度)
+    sync_channel = item.get("sync_channel", "github")
+    if sync_channel == "local":
+        print(f"--> 该软件配置为 [🖥️ 本地服务器直传] 通道，跳过云端 GitHub Actions 处理以节省额度。")
+        item["status"] = "local_channel (由本地直传)"
+        drives_map = {dname: True for dname, _ in drive_names}
+        status_info = {
+            "version": last_version or "local",
+            "last_sync": last_sync_time or "",
+            "drives": drives_map
+        }
+        detail = {"type": "skipped", "name": name, "repo": repo, "reason": "已配置为本地服务器直传通道"}
+        return True, (name, status_info), detail
+
     # 独立检测更新间隔 (冷却期) 判断
     check_interval = int(item.get("check_interval_hours", 0) or 0)
     last_sync_time = item.get("last_sync_time", "")
@@ -534,9 +549,21 @@ def sync_software_item(item: dict, default_remote_dir: str = "", default_disguis
             print(f"\n[多盘分发 ➔ {dname}] 正在上传至: {remote_target_dir} ...")
 
             upload_success_count = 0
-            for upload_name, upload_path in files_to_upload:
+            consecutive_failures = 0 # 记录当前网盘连续失败文件数
+
+            for f_idx, (upload_name, upload_path) in enumerate(files_to_upload):
                 if alist_upload_file(upload_path, remote_target_dir, upload_name):
                     upload_success_count += 1
+                    consecutive_failures = 0 # 成功则重置连续失败计数
+                else:
+                    consecutive_failures += 1
+                    # 熔断触发：若当前网盘连续 2 个文件上传超时/失败，且该软件仍有后续文件
+                    if consecutive_failures >= 2 and len(files_to_upload) > 2:
+                        remaining = len(files_to_upload) - f_idx - 1
+                        print(f"[熔断保护 ⚠] 网盘 [{dname}] 连续 {consecutive_failures} 个文件上传超时/失败，判定该网盘接口暂时不可达！")
+                        if remaining > 0:
+                            print(f"[熔断保护 ⚠] 立即跳过网盘 [{dname}] 剩余 {remaining} 个文件的无效重试，保护任务额度！")
+                        break
 
             if upload_success_count > 0:
                 print(f"[多盘分发 ➔ {dname}] 上传成功 ({upload_success_count}/{len(files_to_upload)}) 文件！")
