@@ -8,9 +8,16 @@ on:
     paths:
       - 'software.json' # 当软件清单更新提交时触发同步
 
+# 全局任务排他并发锁：同一时刻仅允许一个同步任务在运行！
+# 若有新任务触发，自动安全取消（cancel-in-progress）前一个尚未完成的旧任务，彻底杜绝多个任务重复争抢上传同一项目
+concurrency:
+  group: alist-sync-pipeline
+  cancel-in-progress: true
+
 jobs:
   sync:
     runs-on: ubuntu-latest
+    timeout-minutes: 20 # 严格硬性超时限制：单次任务最长允许运行 20 分钟，超时自动强杀，杜绝额度偷跑
     permissions:
       contents: write # 允许回写更新后的 software.json 状态
 
