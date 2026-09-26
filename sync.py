@@ -76,13 +76,16 @@ def alist_upload_file(local_path: str, remote_dir: str, file_name: str) -> bool:
     upload_headers["Content-Type"] = "application/octet-stream"
 
     file_size = os.path.getsize(local_path)
-    # 科学合理超时：基础 40 秒 + 每 10MB 增加 10 秒，封顶 180 秒 (3分钟)
-    # 30MB 仅需 70 秒超时；正常传输 5~10 秒即完成，遇接口死锁快速释放，杜绝单文件消耗十几分钟
-    calc_timeout = max(40, min(180, 40 + int(file_size / (1024 * 1024 * 10)) * 10))
-    print(f"[AList] 开始上传: {file_name} ({file_size / 1024 / 1024:.2f} MB) -> {remote_full_path} (超时上限: {calc_timeout}s)")
+    file_size_mb = file_size / (1024 * 1024)
 
-    # 采用快速重试机制 (最多 2 次，重试间隔 2 秒)
-    max_retries = 2
+    # 科学宽容超时：针对国内网盘(百度/夸克/移动)中转落盘耗时设计
+    # 基础 90 秒 + 每 10MB 增加 10 秒，封顶 600 秒 (10 分钟)
+    # 35MB 文件给 120 秒，300MB 文件给 390 秒，给足网盘后端分片合并与确认落盘时间
+    calc_timeout = max(90, min(600, 90 + int(file_size_mb / 10) * 10))
+    print(f"[AList] 开始上传: {file_name} ({file_size_mb:.2f} MB) -> {remote_full_path} (超时上限: {calc_timeout}s)")
+
+    # 采用阶梯式智能退避重试 (最多 3 次，间隔 5s -> 10s)
+    max_retries = 3
     for attempt in range(1, max_retries + 1):
         try:
             with open(local_path, "rb") as f:
@@ -90,12 +93,18 @@ def alist_upload_file(local_path: str, remote_dir: str, file_name: str) -> bool:
             res = resp.json()
             if res.get("code") in [200, 0]:
                 print(f"[AList] 上传成功: {file_name}")
+                # 上传成功后适度休眠 1.5 秒，给网盘后端留出转存落盘与释放连接的时间，避免高频并发排队限流
+                time.sleep(1.5)
                 return True
             else:
                 print(f"[AList] 上传失败 (第 {attempt} 次): {res.get('message')}")
         except Exception as e:
             print(f"[AList] 上传异常 (第 {attempt} 次): {e}")
-        time.sleep(2)
+        
+        # 失败退避休眠：给网盘后端恢复时间
+        backoff_delay = attempt * 5
+        print(f"[AList] 等待 {backoff_delay} 秒后重试...")
+        time.sleep(backoff_delay)
 
     return False
 
