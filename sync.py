@@ -18,7 +18,7 @@ from datetime import datetime
 import requests
 
 # 引擎版本定义
-ENGINE_VERSION = "1.6.0"
+ENGINE_VERSION = "1.7.0"
 
 # ----------------------------------------------------------------------
 # 配置与环境变量获取
@@ -151,21 +151,52 @@ def alist_remove_dir(parent_dir: str, sub_dir_name: str) -> bool:
 # ----------------------------------------------------------------------
 # GitHub API 交互封装
 # ----------------------------------------------------------------------
-def gh_get_latest_release(repo: str) -> dict:
-    """获取 GitHub 仓库最新 Release"""
+def gh_get_latest_release(repo: str, include_prerelease: bool = False) -> dict:
+    """获取 GitHub 仓库最新 Release (支持可选包含预发布版 Pre-release / Beta)"""
     clean_repo = repo.replace("https://github.com/", "").strip().strip("/")
+    
+    if include_prerelease:
+        # 允许获取预发布版：拉取 releases 列表，取第一个非 draft 的版本
+        url = f"https://api.github.com/repos/{clean_repo}/releases?per_page=5"
+        try:
+            resp = requests.get(url, headers=GH_HEADERS, timeout=25)
+            if resp.status_code == 200:
+                releases = resp.json()
+                if isinstance(releases, list) and releases:
+                    for rel in releases:
+                        if not rel.get("draft", False):
+                            return rel
+                print(f"[GitHub] 仓库 {clean_repo} 发布列表为空")
+            elif resp.status_code == 404:
+                print(f"[GitHub] 仓库 {clean_repo} 未找到 Release 或发布版本为空")
+            else:
+                print(f"[GitHub] 请求 Release 列表失败 ({resp.status_code}): {resp.text[:200]}")
+        except Exception as e:
+            print(f"[GitHub] 获取 Release 列表异常 {clean_repo}: {e}")
+        return {}
+
+    # 默认只获取正式稳定版
     url = f"https://api.github.com/repos/{clean_repo}/releases/latest"
     try:
         resp = requests.get(url, headers=GH_HEADERS, timeout=25)
         if resp.status_code == 200:
             return resp.json()
         elif resp.status_code == 404:
-            print(f"[GitHub] 仓库 {clean_repo} 未找到 Release 或发布版本为空")
+            print(f"[GitHub] 仓库 {clean_repo} 未找到正式 Release，尝试检查预发布版本兜底...")
+            # 兜底：若作者从未发布过正式版(全为 prerelease)，自动降级尝试获取最新发布
+            fallback_url = f"https://api.github.com/repos/{clean_repo}/releases?per_page=1"
+            f_resp = requests.get(fallback_url, headers=GH_HEADERS, timeout=25)
+            if f_resp.status_code == 200:
+                f_list = f_resp.json()
+                if isinstance(f_list, list) and f_list and not f_list[0].get("draft", False):
+                    return f_list[0]
+            print(f"[GitHub] 仓库 {clean_repo} 未找到任何可用版本")
         else:
             print(f"[GitHub] 请求 Release 失败 ({resp.status_code}): {resp.text[:200]}")
     except Exception as e:
         print(f"[GitHub] 获取 Release 异常 {clean_repo}: {e}")
     return {}
+
 
 def gh_download_file(download_url: str, save_path: str) -> bool:
     """下载 GitHub 资产文件（带重试与断点能力）"""
@@ -339,9 +370,11 @@ def sync_software_item(item: dict, default_remote_dir: str = "", default_disguis
         if d_resolved not in target_dirs:
             target_dirs.append(d_resolved)
 
+    include_prerelease = bool(item.get("include_prerelease", False))
+
     print(f"\n========================================================")
     print(f"正在检查: {name} ({repo})")
-    print(f"配置: 分类='{category or '无'}' | 匹配规则='{pattern}' | 打包模式='{pkg_mode}' | 加密={'是' if zip_pwd else '否'}")
+    print(f"配置: 分类='{category or '无'}' | 匹配规则='{pattern}' | 打包模式='{pkg_mode}' | 包含预发布={'是' if include_prerelease else '否'} | 加密={'是' if zip_pwd else '否'}")
     print(f"分发目标网盘 ({len(target_dirs)} 个): {target_dirs}")
     print(f"========================================================")
 
@@ -373,7 +406,7 @@ def sync_software_item(item: dict, default_remote_dir: str = "", default_disguis
         except Exception as e:
             print(f"[冷却检查跳过] 时间解析异常: {e}")
 
-    release_info = gh_get_latest_release(repo)
+    release_info = gh_get_latest_release(repo, include_prerelease)
     if not release_info:
         item["status"] = "error: 未能获取 Release"
         detail = {"type": "failed", "name": name, "repo": repo, "error": item["status"]}
