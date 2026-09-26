@@ -61,5 +61,14 @@
       "夸克": true,
       "移动": true
     }
+  },
+  "Kazumi": {
+    "version": "2.3.6",
+    "last_sync": "2026-09-26 12:03:35",
+    "drives": {
+      "宅仓库": true,
+      "夸克": true,
+      "移动": true
+    }
   }
 }
