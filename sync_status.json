@@ -115,5 +115,14 @@
       "夸克": true,
       "移动": true
     }
+  },
+  "DeskBox": {
+    "version": "v1.5.5",
+    "last_sync": "2026-09-28 12:18:58",
+    "drives": {
+      "宅仓库": true,
+      "夸克": true,
+      "移动": true
+    }
   }
 }
