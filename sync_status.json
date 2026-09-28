@@ -133,5 +133,14 @@
       "夸克": true,
       "移动": true
     }
+  },
+  "DLSS5-Swapper": {
+    "version": "v2.2.7",
+    "last_sync": "2026-09-28 17:01:24",
+    "drives": {
+      "宅仓库": true,
+      "夸克": true,
+      "移动": true
+    }
   }
 }
