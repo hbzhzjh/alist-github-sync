@@ -106,5 +106,14 @@
       "夸克": true,
       "移动": true
     }
+  },
+  "bangumi": {
+    "version": "v2.0.3",
+    "last_sync": "2026-09-28 11:46:43",
+    "drives": {
+      "宅仓库": true,
+      "夸克": true,
+      "移动": true
+    }
   }
 }
