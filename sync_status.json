@@ -79,5 +79,14 @@
       "夸克": true,
       "移动": true
     }
+  },
+  "OpenSpeedy": {
+    "version": "3.3.11",
+    "last_sync": "2026-09-28 07:58:53",
+    "drives": {
+      "宅仓库": true,
+      "夸克": true,
+      "移动": true
+    }
   }
 }

@@ -550,7 +550,10 @@
       "disguise_mode": "default",
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
-      "include_prerelease": false
+      "include_prerelease": false,
+      "last_sync_version": "3.3.11",
+      "last_sync_time": "2026-09-28 07:58:53",
+      "status": "success"
     },
     {
       "name": "animeko",
@@ -574,5 +577,5 @@
       "status": "success"
     }
   ],
-  "last_run_time": "2026-09-28 07:57:17"
+  "last_run_time": "2026-09-28 07:58:53"
 }
