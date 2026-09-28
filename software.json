@@ -385,7 +385,10 @@
       "disguise_mode": "default",
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
-      "include_prerelease": false
+      "include_prerelease": false,
+      "last_sync_version": "2.1.0",
+      "last_sync_time": "2026-09-28 20:44:33",
+      "status": "success"
     },
     {
       "name": "DLSS5-Swapper",
@@ -598,5 +601,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-09-28 17:01:24"
+  "last_run_time": "2026-09-28 20:44:33"
 }
