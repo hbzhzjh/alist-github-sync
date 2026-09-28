@@ -478,7 +478,10 @@
       "disguise_mode": "default",
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
-      "include_prerelease": false
+      "include_prerelease": false,
+      "last_sync_version": "1.8.5",
+      "last_sync_time": "2026-09-28 11:46:53",
+      "status": "success (前置预检命中)"
     },
     {
       "name": "bangumi",
@@ -586,5 +589,5 @@
       "status": "success"
     }
   ],
-  "last_run_time": "2026-09-28 11:46:43"
+  "last_run_time": "2026-09-28 11:46:53"
 }
