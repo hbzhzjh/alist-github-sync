@@ -15,10 +15,109 @@ import zipfile
 import tempfile
 import urllib.parse
 from datetime import datetime
+import threading
+import subprocess
 import requests
 
-# 引擎版本定义
-ENGINE_VERSION = "1.7.1"
+# 引擎版本定义 (支持最新添加优先同步、下载前网盘前置预检与单软件即时断点固化)
+ENGINE_VERSION = "1.9.6"
+
+# 全局路径与环境变量配置 (提前声明，防止未定义引用)
+SOFTWARE_JSON_PATH = os.environ.get("SOFTWARE_JSON_PATH", "software.json")
+ALIST_URL = os.environ.get("ALIST_URL", "").rstrip("/")
+ALIST_TOKEN = os.environ.get("ALIST_TOKEN", "").strip()
+GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "").strip()
+
+
+def save_progress_to_disk(softwares, raw_data, is_list_format, status_map):
+    """即时将最新的软件清单与状态刷盘，确保容器意外中断时本地磁盘已稳妥保存最新进度"""
+    try:
+        with open(SOFTWARE_JSON_PATH, "w", encoding="utf-8") as f:
+            if is_list_format:
+                json.dump(softwares, f, ensure_ascii=False, indent=2)
+            else:
+                raw_data["softwares"] = softwares
+                raw_data["last_run_time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                json.dump(raw_data, f, ensure_ascii=False, indent=2)
+            f.flush()
+    except Exception as e:
+        print(f"[写入警告] 即时保存 {SOFTWARE_JSON_PATH} 异常: {e}", flush=True)
+
+    try:
+        with open("sync_status.json", "w", encoding="utf-8") as sf:
+            json.dump(status_map, sf, ensure_ascii=False, indent=2)
+            sf.flush()
+    except Exception as e:
+        print(f"[写入警告] 即时保存 sync_status.json 异常: {e}", flush=True)
+
+def try_git_push_progress(item_name: str, version: str):
+    """尝试将单条成功更新的软件即时 commit 并 push 到 Git 仓库，实现无惧超时的断点固化"""
+    if not os.path.exists(".git"):
+        return False
+    try:
+        st = subprocess.run(["git", "status", "-s", SOFTWARE_JSON_PATH, "sync_status.json"],
+                            capture_output=True, text=True, timeout=10)
+        if not st.stdout.strip():
+            return False
+
+        subprocess.run(["git", "config", "user.name", "SyncEngine Bot"], capture_output=True, timeout=5)
+        subprocess.run(["git", "config", "user.email", "bot@sync.engine"], capture_output=True, timeout=5)
+        subprocess.run(["git", "add", SOFTWARE_JSON_PATH, "sync_status.json"], capture_output=True, timeout=10)
+        
+        commit_msg = f"chore(sync): update {item_name} to {version} [skip ci]"
+        subprocess.run(["git", "commit", "-m", commit_msg], capture_output=True, timeout=10)
+
+        # 针对腾讯 CNB 平台环境即时推送
+        cnb_token = os.environ.get("CNB_TOKEN", "")
+        cnb_slug = os.environ.get("CNB_REPO_SLUG", "")
+        cnb_branch = os.environ.get("CNB_BRANCH", "main")
+        if cnb_token and cnb_slug:
+            remote_url = f"https://cnb:{cnb_token}@cnb.cool/{cnb_slug}.git"
+            subprocess.run(["git", "pull", "--rebase", remote_url, cnb_branch], capture_output=True, timeout=20)
+            p = subprocess.run(["git", "push", remote_url, f"HEAD:{cnb_branch}"], capture_output=True, text=True, timeout=30)
+            if p.returncode == 0:
+                print(f"[即时固化] 成功将 [{item_name}] 的最新同步进度推送到 CNB 仓库！", flush=True)
+                return True
+
+        # 针对 GitHub Actions 环境即时推送
+        if os.environ.get("GITHUB_ACTIONS") == "true":
+            subprocess.run(["git", "pull", "--rebase", "origin", "main"], capture_output=True, timeout=15)
+            p = subprocess.run(["git", "push", "origin", "main"], capture_output=True, text=True, timeout=30)
+            if p.returncode == 0:
+                print(f"[即时固化] 成功将 [{item_name}] 的最新同步进度推送到 GitHub 仓库！", flush=True)
+                return True
+    except Exception as e:
+        print(f"[即时固化提示] 单步 Git 自动推送跳过或失败 (将在流水线末尾重试): {e}", flush=True)
+    return False
+
+class UploadHeartbeat:
+    """上传长任务保活心跳管理器，防止 CI/CD 平台因超过 10 分钟无任何输出而触发看门狗强制 kill"""
+    def __init__(self, task_name: str, timeout_sec: int, interval_sec: int = 30):
+        self.task_name = task_name
+        self.timeout_sec = timeout_sec
+        self.interval_sec = interval_sec
+        self.stop_event = threading.Event()
+        self.thread = None
+        self.start_time = None
+
+    def _run(self):
+        while not self.stop_event.wait(self.interval_sec):
+            elapsed = int(time.time() - self.start_time)
+            print(
+                f"[CI保活心跳] {self.task_name} 进行中: 已耗时 {elapsed}s (上限 {self.timeout_sec}s)，网盘服务端正在中转/分片落盘中...",
+                flush=True
+            )
+
+    def __enter__(self):
+        self.start_time = time.time()
+        self.thread = threading.Thread(target=self._run, daemon=True)
+        self.thread.start()
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.stop_event.set()
+        if self.thread and self.thread.is_alive():
+            self.thread.join(timeout=1.0)
 
 # ----------------------------------------------------------------------
 # 配置与环境变量获取
@@ -59,8 +158,24 @@ def alist_mkdir(path: str) -> bool:
         print(f"[AList] 创建目录 {path} 异常: {e}")
         return False
 
+def alist_get_file_info(remote_file_path: str) -> dict:
+    """获取 AList 指定文件/路径的元信息（大小、是否存在等）"""
+    url = f"{ALIST_URL}/api/fs/get"
+    try:
+        resp = requests.post(url, headers=ALIST_HEADERS, json={
+            "path": remote_file_path,
+            "password": ""
+        }, timeout=20)
+        res = resp.json()
+        if res.get("code") in [200, 0]:
+            return res.get("data") or {}
+    except Exception as e:
+        # 网络异常时不中断主流程
+        pass
+    return {}
+
 def alist_upload_file(local_path: str, remote_dir: str, file_name: str) -> bool:
-    """上传本地文件到 AList 指定目录"""
+    """上传本地文件到 AList 指定目录（具备幂等检测、宽容超时与假超时自动复核能力）"""
     # 确保远端目录结构存在
     alist_mkdir(remote_dir)
 
@@ -69,44 +184,97 @@ def alist_upload_file(local_path: str, remote_dir: str, file_name: str) -> bool:
     remote_full_path = f"{clean_dir}/{file_name}"
     encoded_path = urllib.parse.quote(remote_full_path)
 
+    file_size = os.path.getsize(local_path)
+    file_size_mb = file_size / (1024 * 1024)
+
+    # 1. 幂等性检测：上传前先探测网盘远端是否已存在且大小匹配
+    existing_info = alist_get_file_info(remote_full_path)
+    if existing_info and not existing_info.get("is_dir", False):
+        remote_size = existing_info.get("size", -1)
+        if remote_size == file_size:
+            print(f"[AList] 检测到文件已在网盘完整存在且大小一致 ({file_size_mb:.2f} MB)，直接跳过上传: {file_name}")
+            return True
+        elif remote_size > 0:
+            print(f"[AList] 网盘存在同名文件但大小不符 (网盘: {remote_size/(1024*1024):.2f}MB, 本地: {file_size_mb:.2f}MB)，将重新上传覆盖")
+
     # AList PUT 流式上传接口
     url = f"{ALIST_URL}/api/fs/put"
     upload_headers = ALIST_HEADERS.copy()
     upload_headers["File-Path"] = encoded_path
     upload_headers["Content-Type"] = "application/octet-stream"
 
-    file_size = os.path.getsize(local_path)
-    file_size_mb = file_size / (1024 * 1024)
-
-    # 科学宽容超时：针对国内网盘(百度/夸克/移动)中转落盘耗时设计
-    # 基础 90 秒 + 每 10MB 增加 10 秒，封顶 600 秒 (10 分钟)
-    # 35MB 文件给 120 秒，300MB 文件给 390 秒，给足网盘后端分片合并与确认落盘时间
-    calc_timeout = max(90, min(600, 90 + int(file_size_mb / 10) * 10))
+    # 2. 科学宽容超时：针对海外 AList 节点中转与国内网盘(百度/夸克/移动)分片落盘耗时设计
+    # 基础 180 秒(3分钟) + 每 10MB 增加 25 秒，封顶 1800 秒 (30 分钟)
+    # 35MB 文件给 255 秒，300MB 文件给 930 秒，避免客户端因等不及 AList 中转而提前判定超时
+    calc_timeout = max(180, min(1800, 180 + int(file_size_mb / 10) * 25))
     print(f"[AList] 开始上传: {file_name} ({file_size_mb:.2f} MB) -> {remote_full_path} (超时上限: {calc_timeout}s)")
 
-    # 采用阶梯式智能退避重试 (最多 3 次，间隔 5s -> 10s)
+    # 采用阶梯式智能退避重试 (最多 3 次，间隔 5s -> 10s -> 15s)
     max_retries = 3
     for attempt in range(1, max_retries + 1):
+        heartbeat_title = f"{file_name} ({file_size_mb:.2f} MB)"
         try:
-            with open(local_path, "rb") as f:
-                resp = requests.put(url, headers=upload_headers, data=f, timeout=calc_timeout)
+            # 引入心跳保活守护线程：每 30 秒向控制台输出心跳，彻底阻断 CI 平台的 10 分钟无输出 kill 机制
+            with UploadHeartbeat(heartbeat_title, calc_timeout, interval_sec=30):
+                with open(local_path, "rb") as f:
+                    # 使用元组超时：连接阶段 30s，读取服务端响应等待阶段 calc_timeout
+                    resp = requests.put(url, headers=upload_headers, data=f, timeout=(30, calc_timeout))
             res = resp.json()
             if res.get("code") in [200, 0]:
-                print(f"[AList] 上传成功: {file_name}")
+                print(f"[AList] 上传成功: {file_name}", flush=True)
                 # 上传成功后适度休眠 1.5 秒，给网盘后端留出转存落盘与释放连接的时间，避免高频并发排队限流
                 time.sleep(1.5)
                 return True
             else:
-                print(f"[AList] 上传失败 (第 {attempt} 次): {res.get('message')}")
+                print(f"[AList] 上传失败 (第 {attempt} 次): {res.get('message')}", flush=True)
         except Exception as e:
-            print(f"[AList] 上传异常 (第 {attempt} 次): {e}")
-        
+            print(f"[AList] 上传异常 (第 {attempt} 次): {e}", flush=True)
+
+        # 3. 核心机制：假超时/幽灵成功复核 (Ghost Success Verification)
+        # 常见场景：AList 在后台已经成功把文件推入百度/夸克等网盘落盘，但客户端由于网络抖动或等待回包超时 (Read timed out)
+        # 此时先缓冲等待 3 秒，向 AList 询问目标文件是否已经完整落盘
+        print(f"[AList] 正在复核网盘目标文件是否已在后台落盘...")
+        time.sleep(3)
+        verify_info = alist_get_file_info(remote_full_path)
+        if verify_info and not verify_info.get("is_dir", False):
+            if verify_info.get("size") == file_size:
+                print(f"[AList 成功复核 [成功]] 虽捕获到异常/未获正常回包，但检测到文件已成功落盘至网盘 ({file_size_mb:.2f} MB)，直接判定为上传成功！")
+                time.sleep(1.5)
+                return True
+
         # 失败退避休眠：给网盘后端恢复时间
         backoff_delay = attempt * 5
         print(f"[AList] 等待 {backoff_delay} 秒后重试...")
         time.sleep(backoff_delay)
 
     return False
+
+def alist_list_files(remote_dir: str) -> dict:
+    """列出 AList 指定目录下所有的现有文件及其实际大小映射: {filename: size}，用于上传前全量预检"""
+    url = f"{ALIST_URL}/api/fs/list"
+    try:
+        resp = requests.post(url, headers=ALIST_HEADERS, json={
+            "path": remote_dir,
+            "page": 1,
+            "per_page": 0,
+            "refresh": True  # 强制刷新 AList 缓存，获取真实网盘文件列表
+        }, timeout=25)
+        res = resp.json()
+        if res.get("code") not in [200, 0]:
+            return {}
+        
+        content = res.get("data", {}).get("content", [])
+        if not content:
+            return {}
+            
+        file_map = {}
+        for item in content:
+            if not item.get("is_dir"):
+                file_map[item.get("name")] = item.get("size", 0)
+        return file_map
+    except Exception as e:
+        print(f"[AList] 获取目录文件列表失败 {remote_dir}: {e}")
+        return {}
 
 def alist_list_dirs(remote_dir: str) -> list:
     """列出 AList 目录下所有的子文件夹（按创建/修改时间或排序返回）"""
@@ -209,19 +377,35 @@ def gh_get_latest_release(repo: str, include_prerelease: bool = False) -> dict:
 
 
 def gh_download_file(download_url: str, save_path: str) -> bool:
-    """下载 GitHub 资产文件（带重试与断点能力）"""
+    """下载 GitHub 资产文件（带重试、断点能力、保活进度输出与单文件总时长保护）"""
     max_retries = 3
+    max_total_seconds = 1800  # 单文件总下载时长上限 (30分钟)，防止极端弱网耗尽CI配额
     for attempt in range(1, max_retries + 1):
         try:
+            start_dl_time = time.time()
             with requests.get(download_url, headers=GH_HEADERS, stream=True, timeout=60) as r:
                 r.raise_for_status()
+                total_len = int(r.headers.get("content-length", 0))
+                downloaded = 0
+                last_log_time = time.time()
                 with open(save_path, "wb") as f:
-                    for chunk in r.iter_content(chunk_size=65536):
+                    for chunk in r.iter_content(chunk_size=131072):
                         if chunk:
                             f.write(chunk)
+                            downloaded += len(chunk)
+                            now = time.time()
+                            if now - start_dl_time > max_total_seconds:
+                                raise TimeoutError(f"下载总耗时已超过 {max_total_seconds}s 保护上限，自动终止此文件")
+                            if now - last_log_time >= 30:
+                                last_log_time = now
+                                if total_len > 0:
+                                    percent = (downloaded / total_len) * 100
+                                    print(f"[下载进度] 已下载 {downloaded/(1024*1024):.1f} MB / {total_len/(1024*1024):.1f} MB ({percent:.1f}%)", flush=True)
+                                else:
+                                    print(f"[下载进度] 已下载 {downloaded/(1024*1024):.1f} MB ...", flush=True)
             return True
         except Exception as e:
-            print(f"[GitHub] 下载文件失败 (第 {attempt} 次) {download_url}: {e}")
+            print(f"[GitHub] 下载文件失败 (第 {attempt} 次) {download_url}: {e}", flush=True)
             time.sleep(3)
     return False
 
@@ -352,6 +536,7 @@ def sync_software_item(item: dict, default_remote_dir: str = "", default_disguis
     pkg_mode = item.get("package_mode", "raw").strip()
     keep_versions = int(item.get("keep_versions", 3))
     last_version = item.get("last_sync_version", "").strip()
+    last_sync_time = item.get("last_sync_time", "").strip()
 
     # 读取解压密码：优先单软件独立密码，其次 effective_password，最后全局环境变量
     zip_pwd = item.get("zip_password") or item.get("effective_password") or os.environ.get("DEFAULT_ZIP_PASSWORD", "")
@@ -359,13 +544,15 @@ def sync_software_item(item: dict, default_remote_dir: str = "", default_disguis
 
     if not name or not repo or not remote_dir:
         print(f"[跳过] 软件项配置不完整 (缺失名称/仓库或网盘路径): {name}")
-        return False, None
+        detail = {"type": "skipped", "name": name or "未命名", "repo": repo or "", "reason": "配置不完整"}
+        return False, None, detail
 
     # 解析多个网盘路径 (支持分号、逗号、换行分隔) 及 {category} 占位符
     raw_dirs = [d.strip() for d in re.split(r'[;\n,]+', remote_dir) if d.strip()]
     if not raw_dirs:
         print(f"[跳过] 未指定有效的网盘存放路径: {name}")
-        return False, None
+        detail = {"type": "skipped", "name": name, "repo": repo, "reason": "未指定有效的网盘存放路径"}
+        return False, None, detail
 
     target_dirs = []
     for d in raw_dirs:
@@ -395,10 +582,10 @@ def sync_software_item(item: dict, default_remote_dir: str = "", default_disguis
         dname = clean_parts[0] if clean_parts else "AList"
         drive_names.append((dname, td))
 
-    # 检查是否配置为本地服务器直传通道 (若为 local，云端直接跳过，零消耗 Actions 额度)
-    sync_channel = item.get("sync_channel", "github")
+    # 检查是否配置为本地服务器直传通道 (若为 local，云端直接跳过，零消耗云端额度)
+    sync_channel = item.get("sync_channel", "default")
     if sync_channel == "local":
-        print(f"--> 该软件配置为 [🖥️ 本地服务器直传] 通道，跳过云端 GitHub Actions 处理以节省额度。")
+        print(f"--> 该软件配置为 [本地服务器直传] 通道，跳过云端流水线处理以节省额度。")
         item["status"] = "local_channel (由本地直传)"
         drives_map = {dname: True for dname, _ in drive_names}
         status_info = {
@@ -411,7 +598,6 @@ def sync_software_item(item: dict, default_remote_dir: str = "", default_disguis
 
     # 独立检测更新间隔 (冷却期) 判断
     check_interval = int(item.get("check_interval_hours", 0) or 0)
-    last_sync_time = item.get("last_sync_time", "")
     if check_interval > 0 and last_sync_time and last_version:
         try:
             last_dt = datetime.strptime(last_sync_time, "%Y-%m-%d %H:%M:%S")
@@ -485,6 +671,85 @@ def sync_software_item(item: dict, default_remote_dir: str = "", default_disguis
 
     print(f"成功匹配到 {len(matched_assets)} 个待同步文件: {[a.get('name') for a in matched_assets]}")
 
+    # ------------------------------------------------------------------
+    # 核心优化：下载前向所有目标网盘执行前置预检 (Pre-flight Inspection)
+    # ------------------------------------------------------------------
+    print(f"\n[前置预检] 正在向各个目标网盘核对目录 {name}/{tag_name} 是否已存在文件...")
+    drive_existing_map = {}
+    for dname, target_dir in drive_names:
+        rdir = f"{target_dir.rstrip('/')}/{name}/{tag_name}"
+        drive_existing_map[dname] = alist_list_files(rdir)
+        if drive_existing_map[dname]:
+            print(f"[前置预检] 网盘 [{dname}] 探测到 {len(drive_existing_map[dname])} 个已有文件: {list(drive_existing_map[dname].keys())}")
+        else:
+            print(f"[前置预检] 网盘 [{dname}] 暂无文件记录")
+
+    clean_tag = tag_name.replace("/", "_")
+    raw_disguise = item.get("disguise_mode") or "default"
+    effective_disguise = item.get("effective_disguise_mode") or (default_disguise_mode if raw_disguise == "default" else raw_disguise)
+    effective_disguise = (effective_disguise or "none").strip()
+
+    expected_zip_name = f"{name}_{clean_tag}.zip"
+    if effective_disguise == "zip1":
+        expected_zip_name = f"{name}_{clean_tag}.zip1"
+    elif effective_disguise == "zip_txt":
+        expected_zip_name = f"{name}_{clean_tag}[下载后删去末尾txt].zip.txt"
+    elif effective_disguise == "split":
+        expected_zip_name = f"{name}_{clean_tag}.zip.001"
+
+    # 判断是否全部目标网盘都已经满足同步要求
+    all_drives_fully_synced = True
+    for dname, _ in drive_names:
+        ex_files = drive_existing_map.get(dname, {})
+        # 1. 如果包含原始文件
+        if pkg_mode in ["raw", "both"]:
+            for asset in matched_assets:
+                aname = asset.get("name")
+                asize = asset.get("size", 0)
+                if aname not in ex_files:
+                    all_drives_fully_synced = False
+                    break
+                # 若网盘存在但大小不符
+                if asize > 0 and ex_files[aname] != asize:
+                    all_drives_fully_synced = False
+                    break
+        # 2. 如果包含压缩包
+        if pkg_mode in ["both", "zip_only"]:
+            if expected_zip_name not in ex_files or ex_files[expected_zip_name] <= 1024:
+                all_drives_fully_synced = False
+
+        if not all_drives_fully_synced:
+            break
+
+    if all_drives_fully_synced:
+        print(f"\n========================================================")
+        print(f"[前置预检全部命中] 检测到所有目标网盘均已完整存在当前版本 ({tag_name}) 的全部文件！")
+        print(f"--> 字节级 100% 匹配，跳过全部 GitHub 下载与上传阶段，直接秒级完成！")
+        print(f"========================================================")
+        drives_status = {dname: True for dname, _ in drive_names}
+        if keep_versions > 0:
+            print(f"[版本轮转] 检查并清理历史旧版本...")
+            for dname, target_dir in drive_names:
+                rotate_old_versions(target_dir, name, keep_versions)
+
+        item["last_sync_version"] = tag_name
+        item["last_sync_time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        item["status"] = "success (前置预检命中)"
+        status_info = {
+            "version": tag_name,
+            "last_sync": item["last_sync_time"],
+            "drives": drives_status
+        }
+        detail = {
+            "type": "updated",
+            "name": name,
+            "repo": repo,
+            "version": tag_name,
+            "previous_version": last_version or "初次同步",
+            "drives": drives_status
+        }
+        return True, (name, status_info), detail
+
     # 使用临时工作目录下载与打包
     with tempfile.TemporaryDirectory(prefix="alist_sync_") as tmp_dir:
         downloaded_files = []
@@ -555,12 +820,34 @@ def sync_software_item(item: dict, default_remote_dir: str = "", default_disguis
 
         for dname, target_dir in drive_names:
             remote_target_dir = f"{target_dir.rstrip('/')}/{name}/{tag_name}"
-            print(f"\n[多盘分发 ➔ {dname}] 正在上传至: {remote_target_dir} ...")
+            print(f"\n[多盘分发 -> {dname}] 目标网盘目录: {remote_target_dir}")
+
+            # 核心优化：复用前置预检盘点结果，避免二次网络开销
+            existing_files = drive_existing_map.get(dname) if (drive_existing_map and dname in drive_existing_map) else alist_list_files(remote_target_dir)
+            if existing_files:
+                print(f"[网盘状态] 网盘 [{dname}] 探测到 {len(existing_files)} 个已有文件: {list(existing_files.keys())}")
+            else:
+                print(f"[网盘状态] 网盘 [{dname}] 暂无文件记录，准备完整上传")
 
             upload_success_count = 0
             consecutive_failures = 0 # 记录当前网盘连续失败文件数
 
             for f_idx, (upload_name, upload_path) in enumerate(files_to_upload):
+                local_size = os.path.getsize(upload_path)
+                local_size_mb = local_size / (1024 * 1024)
+
+                # 重点判断：如果网盘里已经传好了（同名且大小完全匹配），直接跳过！
+                if upload_name in existing_files:
+                    remote_size = existing_files[upload_name]
+                    if remote_size == local_size:
+                        print(f"[秒级跳过] 网盘 [{dname}] 已存在完整文件: {upload_name} ({local_size_mb:.2f} MB)，直接跳过无需重复上传！")
+                        upload_success_count += 1
+                        consecutive_failures = 0 # 重置失败计数
+                        continue
+                    else:
+                        print(f"[差异重传] 网盘 [{dname}] 存在同名文件但大小不符 (网盘: {remote_size/(1024*1024):.2f} MB, 本地: {local_size_mb:.2f} MB)，准备重新上传覆盖")
+
+                # 如果没传好或不存在，则执行真正的上传流程
                 if alist_upload_file(upload_path, remote_target_dir, upload_name):
                     upload_success_count += 1
                     consecutive_failures = 0 # 成功则重置连续失败计数
@@ -569,13 +856,13 @@ def sync_software_item(item: dict, default_remote_dir: str = "", default_disguis
                     # 熔断触发：若当前网盘连续 2 个文件上传超时/失败，且该软件仍有后续文件
                     if consecutive_failures >= 2 and len(files_to_upload) > 2:
                         remaining = len(files_to_upload) - f_idx - 1
-                        print(f"[熔断保护 ⚠] 网盘 [{dname}] 连续 {consecutive_failures} 个文件上传超时/失败，判定该网盘接口暂时不可达！")
+                        print(f"[熔断保护 [警告]] 网盘 [{dname}] 连续 {consecutive_failures} 个文件上传超时/失败，判定该网盘接口暂时不可达！")
                         if remaining > 0:
-                            print(f"[熔断保护 ⚠] 立即跳过网盘 [{dname}] 剩余 {remaining} 个文件的无效重试，保护任务额度！")
+                            print(f"[熔断保护 [警告]] 立即跳过网盘 [{dname}] 剩余 {remaining} 个文件的无效重试，保护任务额度！")
                         break
 
             if upload_success_count > 0:
-                print(f"[多盘分发 ➔ {dname}] 上传成功 ({upload_success_count}/{len(files_to_upload)}) 文件！")
+                print(f"[多盘分发 -> {dname}] 上传成功 ({upload_success_count}/{len(files_to_upload)}) 文件！")
                 drives_status[dname] = True
                 any_success = True
 
@@ -585,7 +872,7 @@ def sync_software_item(item: dict, default_remote_dir: str = "", default_disguis
                 except Exception as e:
                     print(f"[清理警告] 网盘 [{dname}] 历史版本轮转异常: {e}")
             else:
-                print(f"[多盘分发 ➔ {dname}] 全部文件上传失败！")
+                print(f"[多盘分发 -> {dname}] 全部文件上传失败！")
                 drives_status[dname] = False
 
         if not any_success:
@@ -654,7 +941,7 @@ def main():
         print("[提示] software.json 中软件清单为空，无需同步。")
         sys.exit(0)
 
-    print(f"共发现 {len(softwares)} 个待监控的软件项目。")
+    print(f"共发现 {len(softwares)} 个待监控的软件项目（按最新添加优先顺序倒序检查）。")
     if global_default_remote_dir:
         print(f"[全局默认网盘路径] {global_default_remote_dir}")
     if global_default_disguise_mode and global_default_disguise_mode != "none":
@@ -674,7 +961,8 @@ def main():
     skipped_items = []
     failed_items = []
 
-    for item in softwares:
+    # 优先检查最新录入/排在后面的软件（倒序扫描）
+    for item in reversed(softwares):
         try:
             res, status_tuple, detail = sync_software_item(
                 item,
@@ -685,10 +973,15 @@ def main():
                 s_name, s_info = status_tuple
                 status_map[s_name] = s_info
             
+            detail = detail or {}
             if detail.get("type") == "updated":
                 updated_items.append(detail)
+                # 核心突破：单软件成功即时刷盘并推送到 Git 仓库，杜绝超时前功尽弃
+                save_progress_to_disk(softwares, raw_data, is_list_format, status_map)
+                try_git_push_progress(item.get("name", "软件"), detail.get("version", ""))
             elif detail.get("type") == "failed":
                 failed_items.append(detail)
+                save_progress_to_disk(softwares, raw_data, is_list_format, status_map)
             else:
                 skipped_items.append(detail)
         except Exception as err:
