@@ -151,5 +151,14 @@
       "夸克": true,
       "移动": true
     }
+  },
+  "koharu": {
+    "version": "0.83.5",
+    "last_sync": "2026-09-29 21:13:52",
+    "drives": {
+      "宅仓库": true,
+      "夸克": true,
+      "移动": true
+    }
   }
 }
