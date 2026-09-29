@@ -407,9 +407,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v2.2.7",
-      "last_sync_time": "2026-09-28 17:01:24",
-      "status": "success"
+      "last_sync_version": "v2.2.9",
+      "last_sync_time": "2026-09-29 18:58:01",
+      "status": "success (前置预检命中)"
     },
     {
       "name": "bili-music",
@@ -601,5 +601,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-09-28 20:44:33"
+  "last_run_time": "2026-09-29 18:58:01"
 }
