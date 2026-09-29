@@ -160,5 +160,14 @@
       "夸克": true,
       "移动": true
     }
+  },
+  "Zangetsu": {
+    "version": "v2.2.0",
+    "last_sync": "2026-09-29 22:12:10",
+    "drives": {
+      "宅仓库": true,
+      "夸克": true,
+      "移动": true
+    }
   }
 }
