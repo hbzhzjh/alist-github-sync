@@ -313,7 +313,10 @@
       "disguise_mode": "default",
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
-      "include_prerelease": false
+      "include_prerelease": false,
+      "last_sync_version": "v0.7.5",
+      "last_sync_time": "2026-09-30 00:05:08",
+      "status": "success"
     },
     {
       "name": "AnymeX",
@@ -610,5 +613,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-09-29 23:54:49"
+  "last_run_time": "2026-09-30 00:05:08"
 }
