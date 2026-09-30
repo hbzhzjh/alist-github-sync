@@ -196,5 +196,14 @@
       "夸克": true,
       "移动": true
     }
+  },
+  "mpv.net-DW": {
+    "version": "v2.1.0",
+    "last_sync": "2026-09-30 17:45:25",
+    "drives": {
+      "宅仓库": true,
+      "夸克": true,
+      "移动": true
+    }
   }
 }

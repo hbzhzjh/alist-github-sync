@@ -277,7 +277,10 @@
       "disguise_mode": "default",
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
-      "include_prerelease": false
+      "include_prerelease": false,
+      "last_sync_version": "v2.1.0",
+      "last_sync_time": "2026-09-30 17:45:25",
+      "status": "success"
     },
     {
       "name": "video2x",
@@ -616,5 +619,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-09-30 17:35:28"
+  "last_run_time": "2026-09-30 17:45:25"
 }
