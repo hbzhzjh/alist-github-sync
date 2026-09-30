@@ -223,7 +223,10 @@
       "disguise_mode": "default",
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
-      "include_prerelease": false
+      "include_prerelease": false,
+      "last_sync_version": "2.4.8.1",
+      "last_sync_time": "2026-09-30 18:07:25",
+      "status": "success"
     },
     {
       "name": "BewlyCat",
@@ -625,5 +628,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-09-30 17:53:59"
+  "last_run_time": "2026-09-30 18:07:25"
 }
