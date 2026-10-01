@@ -250,5 +250,14 @@
       "夸克": true,
       "移动": true
     }
+  },
+  "Motrix": {
+    "version": "v2.0.3",
+    "last_sync": "2026-10-01 14:54:47",
+    "drives": {
+      "宅仓库": true,
+      "夸克": true,
+      "移动": true
+    }
   }
 }
