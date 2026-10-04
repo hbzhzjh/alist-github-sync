@@ -36,8 +36,8 @@
     }
   },
   "AniCh": {
-    "version": "1.5.25",
-    "last_sync": "2026-09-25 20:26:16",
+    "version": "1.5.26",
+    "last_sync": "2026-10-04 18:03:32",
     "drives": {
       "宅仓库": true,
       "夸克": true,
@@ -66,7 +66,7 @@
     "version": "2.3.7",
     "last_sync": "2026-10-01 16:21:11",
     "drives": {
-      "宅仓库": false,
+      "宅仓库": true,
       "夸克": true,
       "移动": true
     }
