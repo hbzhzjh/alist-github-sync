@@ -383,8 +383,8 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v2.3.0",
-      "last_sync_time": "2026-10-04 14:47:47",
+      "last_sync_version": "v2.3.1",
+      "last_sync_time": "2026-10-07 15:58:30",
       "status": "success"
     },
     {
@@ -574,7 +574,7 @@
       "include_prerelease": false,
       "last_sync_version": "8.41.1",
       "last_sync_time": "2026-10-04 14:01:15",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "EasyBangumi",
@@ -616,7 +616,7 @@
       "include_prerelease": false,
       "last_sync_version": "3.3.16",
       "last_sync_time": "2026-10-04 13:38:49",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "animeko",
@@ -640,5 +640,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-10-04 18:53:50"
+  "last_run_time": "2026-10-07 15:58:30"
 }
