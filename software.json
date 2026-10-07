@@ -278,9 +278,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "0.15.0",
-      "last_sync_time": "2026-09-30 17:52:15",
-      "status": "success (最新)"
+      "last_sync_version": "0.16.0",
+      "last_sync_time": "2026-10-07 16:05:30",
+      "status": "success"
     },
     {
       "name": "mpv.net-DW",
@@ -640,5 +640,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-10-07 15:58:30"
+  "last_run_time": "2026-10-07 16:05:30"
 }
