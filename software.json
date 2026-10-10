@@ -152,9 +152,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "2.3.7",
-      "last_sync_time": "2026-10-01 16:21:11",
-      "status": "success (最新)"
+      "last_sync_version": "2.3.8",
+      "last_sync_time": "2026-10-10 15:48:17",
+      "status": "success"
     },
     {
       "name": "Motrix",
@@ -640,5 +640,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-10-10 15:22:37"
+  "last_run_time": "2026-10-10 15:48:17"
 }
