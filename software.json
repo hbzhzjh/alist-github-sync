@@ -47,9 +47,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v4.9.5",
-      "last_sync_time": "2026-10-04 18:53:48",
-      "status": "success (前置预检命中)"
+      "last_sync_version": "v4.9.6",
+      "last_sync_time": "2026-10-10 17:29:31",
+      "status": "success"
     },
     {
       "name": "pixiv-viewer-app",
@@ -70,7 +70,7 @@
       "include_prerelease": false,
       "last_sync_version": "v1.37.6",
       "last_sync_time": "2026-10-04 18:53:43",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "cojibrowser",
@@ -640,5 +640,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-10-10 17:20:28"
+  "last_run_time": "2026-10-10 17:29:31"
 }

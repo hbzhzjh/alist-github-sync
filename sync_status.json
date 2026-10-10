@@ -9,8 +9,8 @@
     }
   },
   "Pixiv-Shaft": {
-    "version": "v4.9.5",
-    "last_sync": "2026-10-04 18:53:48",
+    "version": "v4.9.6",
+    "last_sync": "2026-10-10 17:29:31",
     "drives": {
       "宅仓库": true,
       "夸克": true,
@@ -28,7 +28,7 @@
   },
   "cojibrowser": {
     "version": "1.8.5",
-    "last_sync": "2026-09-28 11:46:53",
+    "last_sync": "2026-09-25 18:56:13",
     "drives": {
       "宅仓库": true,
       "夸克": true,
