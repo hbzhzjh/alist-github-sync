@@ -131,9 +131,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v19.4.1",
-      "last_sync_time": "2026-09-26 03:11:30",
-      "status": "success (最新)"
+      "last_sync_version": "v19.5.0",
+      "last_sync_time": "2026-10-10 15:49:45",
+      "status": "success"
     },
     {
       "name": "Kazumi",
@@ -640,5 +640,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-10-10 15:48:17"
+  "last_run_time": "2026-10-10 15:49:45"
 }
