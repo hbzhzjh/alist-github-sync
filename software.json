@@ -173,9 +173,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v2.0.3",
-      "last_sync_time": "2026-10-01 14:54:47",
-      "status": "success (最新)"
+      "last_sync_version": "v3.0.0",
+      "last_sync_time": "2026-10-10 15:22:37",
+      "status": "success"
     },
     {
       "name": "mangayomi",
@@ -196,7 +196,7 @@
       "include_prerelease": false,
       "last_sync_version": "v0.9.8",
       "last_sync_time": "2026-10-07 19:12:34",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "Ventoy",
@@ -640,5 +640,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-10-10 14:37:07"
+  "last_run_time": "2026-10-10 15:22:37"
 }
