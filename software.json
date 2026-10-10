@@ -215,9 +215,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v1.1.17",
-      "last_sync_time": "2026-09-30 18:20:48",
-      "status": "success (最新)"
+      "last_sync_version": "v1.1.18",
+      "last_sync_time": "2026-10-10 14:37:07",
+      "status": "success"
     },
     {
       "name": "bilimiao2",
@@ -280,7 +280,7 @@
       "include_prerelease": false,
       "last_sync_version": "0.16.0",
       "last_sync_time": "2026-10-07 16:05:30",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "mpv.net-DW",
@@ -385,7 +385,7 @@
       "include_prerelease": false,
       "last_sync_version": "v2.3.1",
       "last_sync_time": "2026-10-07 15:58:30",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "koharu",
@@ -469,7 +469,7 @@
       "include_prerelease": false,
       "last_sync_version": "v0.8.0",
       "last_sync_time": "2026-09-28 12:27:01",
-      "status": "success (最新)"
+      "status": "error: 未能获取 Release"
     },
     {
       "name": "DeskBox",
@@ -640,5 +640,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-10-10 14:15:10"
+  "last_run_time": "2026-10-10 14:37:07"
 }
