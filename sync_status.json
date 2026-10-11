@@ -277,5 +277,14 @@
       "夸克": true,
       "移动": true
     }
+  },
+  "bbplayer": {
+    "version": "v2.7.0",
+    "last_sync": "2026-10-11 08:36:23",
+    "drives": {
+      "宅仓库": true,
+      "夸克": true,
+      "移动": true
+    }
   }
 }
