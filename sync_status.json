@@ -286,5 +286,14 @@
       "夸克": true,
       "移动": true
     }
+  },
+  "DLSS-NR-on-AMD": {
+    "version": "v0.6.0",
+    "last_sync": "2026-10-11 08:41:43",
+    "drives": {
+      "宅仓库": true,
+      "夸克": true,
+      "移动": true
+    }
   }
 }

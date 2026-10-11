@@ -697,7 +697,10 @@
       "disguise_mode": "default",
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
-      "include_prerelease": false
+      "include_prerelease": false,
+      "last_sync_version": "v0.6.0",
+      "last_sync_time": "2026-10-11 08:41:43",
+      "status": "success"
     },
     {
       "name": "bbplayer",
@@ -721,5 +724,5 @@
       "status": "success"
     }
   ],
-  "last_run_time": "2026-10-11 08:36:23"
+  "last_run_time": "2026-10-11 08:41:43"
 }
