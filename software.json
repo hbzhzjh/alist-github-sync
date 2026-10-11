@@ -679,7 +679,7 @@
       "include_prerelease": false,
       "last_sync_version": "v2.5.1",
       "last_sync_time": "2026-10-11 06:11:06",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "DLSS-NR-on-AMD",
@@ -724,5 +724,5 @@
       "status": "success"
     }
   ],
-  "last_run_time": "2026-10-11 08:41:43"
+  "last_run_time": "2026-10-11 08:41:52"
 }
