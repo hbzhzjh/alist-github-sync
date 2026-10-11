@@ -28,7 +28,7 @@
       "include_prerelease": false,
       "last_sync_version": "0.9.110",
       "last_sync_time": "2026-10-10 18:24:48",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "Pixiv-Shaft",
@@ -49,7 +49,7 @@
       "include_prerelease": false,
       "last_sync_version": "v4.9.6",
       "last_sync_time": "2026-10-10 17:29:31",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "pixiv-viewer-app",
@@ -112,7 +112,7 @@
       "include_prerelease": false,
       "last_sync_version": "1.5.27",
       "last_sync_time": "2026-10-10 17:20:28",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "PixivBatchDownloader",
@@ -133,7 +133,7 @@
       "include_prerelease": false,
       "last_sync_version": "v19.5.0",
       "last_sync_time": "2026-10-10 15:49:45",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "Kazumi",
@@ -154,7 +154,7 @@
       "include_prerelease": false,
       "last_sync_version": "2.3.8",
       "last_sync_time": "2026-10-10 15:48:17",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "Motrix",
@@ -175,7 +175,7 @@
       "include_prerelease": false,
       "last_sync_version": "v3.0.0",
       "last_sync_time": "2026-10-10 15:22:37",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "mangayomi",
@@ -217,7 +217,7 @@
       "include_prerelease": false,
       "last_sync_version": "v1.1.18",
       "last_sync_time": "2026-10-10 14:37:07",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "bilimiao2",
@@ -574,7 +574,7 @@
       "include_prerelease": false,
       "last_sync_version": "8.41.3",
       "last_sync_time": "2026-10-10 14:15:10",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "EasyBangumi",
@@ -661,5 +661,5 @@
       "status": "success"
     }
   ],
-  "last_run_time": "2026-10-11 05:01:12"
+  "last_run_time": "2026-10-11 05:01:22"
 }
