@@ -28,7 +28,7 @@
   },
   "cojibrowser": {
     "version": "1.8.5",
-    "last_sync": "2026-09-25 18:56:13",
+    "last_sync": "2026-09-28 11:46:53",
     "drives": {
       "宅仓库": true,
       "夸克": true,
@@ -252,8 +252,8 @@
     }
   },
   "Motrix": {
-    "version": "v3.0.0",
-    "last_sync": "2026-10-10 15:22:37",
+    "version": "v3.1.0",
+    "last_sync": "2026-10-12 06:41:21",
     "drives": {
       "宅仓库": true,
       "夸克": true,
