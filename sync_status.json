@@ -295,5 +295,14 @@
       "夸克": true,
       "移动": true
     }
+  },
+  "Game-Cheats-Manager": {
+    "version": "v2.5.4",
+    "last_sync": "2026-10-12 05:03:53",
+    "drives": {
+      "宅仓库": true,
+      "夸克": true,
+      "移动": true
+    }
   }
 }
