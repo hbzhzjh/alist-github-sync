@@ -488,9 +488,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v1.5.5",
-      "last_sync_time": "2026-09-28 12:18:58",
-      "status": "success (最新)"
+      "last_sync_version": "v1.5.7",
+      "last_sync_time": "2026-10-13 18:23:41",
+      "status": "success"
     },
     {
       "name": "aura-tab",
@@ -745,5 +745,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-10-13 18:17:28"
+  "last_run_time": "2026-10-13 18:23:41"
 }
