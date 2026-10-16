@@ -383,9 +383,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v2.3.1",
-      "last_sync_time": "2026-10-07 15:58:30",
-      "status": "success (最新)"
+      "last_sync_version": "v2.3.2",
+      "last_sync_time": "2026-10-16 13:55:42",
+      "status": "success"
     },
     {
       "name": "koharu",
@@ -427,7 +427,7 @@
       "include_prerelease": false,
       "last_sync_version": "2.2.0",
       "last_sync_time": "2026-10-13 20:57:29",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "DLSS5-Swapper",
@@ -448,7 +448,7 @@
       "include_prerelease": false,
       "last_sync_version": "v2.2.9",
       "last_sync_time": "2026-09-29 18:58:01",
-      "status": "success (最新)"
+      "status": "error: 未能获取 Release"
     },
     {
       "name": "bili-music",
@@ -469,7 +469,7 @@
       "include_prerelease": false,
       "last_sync_version": "v0.8.0",
       "last_sync_time": "2026-09-28 12:27:01",
-      "status": "error: 未能获取 Release"
+      "status": "success (最新)"
     },
     {
       "name": "DeskBox",
@@ -745,5 +745,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-10-16 13:02:34"
+  "last_run_time": "2026-10-16 13:55:42"
 }
