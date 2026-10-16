@@ -47,9 +47,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v4.9.6",
-      "last_sync_time": "2026-10-10 17:29:31",
-      "status": "success (最新)"
+      "last_sync_version": "v4.9.7",
+      "last_sync_time": "2026-10-16 18:26:54",
+      "status": "success"
     },
     {
       "name": "pixiv-viewer-app",
@@ -745,5 +745,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-10-16 18:11:44"
+  "last_run_time": "2026-10-16 18:26:54"
 }
