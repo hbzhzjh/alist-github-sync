@@ -488,8 +488,8 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v1.5.7",
-      "last_sync_time": "2026-10-13 18:23:41",
+      "last_sync_version": "v1.5.8",
+      "last_sync_time": "2026-10-16 13:02:34",
       "status": "success"
     },
     {
@@ -637,7 +637,7 @@
       "include_prerelease": false,
       "last_sync_version": "v6.3.0",
       "last_sync_time": "2026-10-13 18:17:28",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "DiPlay",
@@ -745,5 +745,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-10-16 12:54:13"
+  "last_run_time": "2026-10-16 13:02:34"
 }
