@@ -278,9 +278,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "0.16.0",
-      "last_sync_time": "2026-10-07 16:05:30",
-      "status": "success (最新)"
+      "last_sync_version": "0.17.0",
+      "last_sync_time": "2026-10-19 15:23:05",
+      "status": "success"
     },
     {
       "name": "mpv.net-DW",
@@ -385,7 +385,7 @@
       "include_prerelease": false,
       "last_sync_version": "v2.3.2",
       "last_sync_time": "2026-10-16 13:55:42",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "koharu",
@@ -490,7 +490,7 @@
       "include_prerelease": false,
       "last_sync_version": "v1.5.8",
       "last_sync_time": "2026-10-16 13:02:34",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "aura-tab",
@@ -745,5 +745,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-10-19 15:15:36"
+  "last_run_time": "2026-10-19 15:23:05"
 }

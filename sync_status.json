@@ -28,7 +28,7 @@
   },
   "cojibrowser": {
     "version": "1.8.5",
-    "last_sync": "2026-09-25 18:56:13",
+    "last_sync": "2026-09-28 11:46:53",
     "drives": {
       "宅仓库": true,
       "夸克": true,
@@ -207,8 +207,8 @@
     }
   },
   "BilibiliSponsorBlock": {
-    "version": "0.16.0",
-    "last_sync": "2026-10-07 16:05:30",
+    "version": "0.17.0",
+    "last_sync": "2026-10-19 15:23:05",
     "drives": {
       "宅仓库": true,
       "夸克": true,
