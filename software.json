@@ -47,8 +47,8 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v4.9.7",
-      "last_sync_time": "2026-10-16 18:26:54",
+      "last_sync_version": "v4.9.8",
+      "last_sync_time": "2026-10-19 15:43:28",
       "status": "success"
     },
     {
@@ -154,7 +154,7 @@
       "include_prerelease": false,
       "last_sync_version": "2.3.9",
       "last_sync_time": "2026-10-16 18:11:44",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "Motrix",
@@ -196,7 +196,7 @@
       "include_prerelease": false,
       "last_sync_version": "v0.9.9",
       "last_sync_time": "2026-10-16 17:26:02",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "Ventoy",
@@ -745,5 +745,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-10-19 15:25:21"
+  "last_run_time": "2026-10-19 15:43:28"
 }
