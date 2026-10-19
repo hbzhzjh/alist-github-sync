@@ -656,8 +656,8 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": true,
-      "last_sync_version": "v0.2.20",
-      "last_sync_time": "2026-10-16 12:54:13",
+      "last_sync_version": "v0.2.21",
+      "last_sync_time": "2026-10-19 15:11:09",
       "status": "success"
     },
     {
@@ -700,7 +700,7 @@
       "include_prerelease": false,
       "last_sync_version": "v0.6.0",
       "last_sync_time": "2026-10-11 08:41:43",
-      "status": "success (最新)"
+      "status": "warning: 未匹配到资产"
     },
     {
       "name": "bbplayer",
@@ -745,5 +745,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-10-16 18:26:56"
+  "last_run_time": "2026-10-19 15:11:09"
 }
