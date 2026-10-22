@@ -26,9 +26,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "0.9.110",
-      "last_sync_time": "2026-10-10 18:24:48",
-      "status": "success (最新)"
+      "last_sync_version": "0.9.112",
+      "last_sync_time": "2026-10-22 16:14:58",
+      "status": "success"
     },
     {
       "name": "Pixiv-Shaft",
@@ -49,7 +49,7 @@
       "include_prerelease": false,
       "last_sync_version": "v4.9.8",
       "last_sync_time": "2026-10-19 15:43:28",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "pixiv-viewer-app",
@@ -745,5 +745,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-10-22 15:40:45"
+  "last_run_time": "2026-10-22 16:14:58"
 }

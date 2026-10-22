@@ -1,11 +1,11 @@
 {
   "pixez-flutter": {
-    "version": "0.9.110",
-    "last_sync": "2026-10-10 18:24:48",
+    "version": "0.9.112",
+    "last_sync": "2026-10-22 16:14:58",
     "drives": {
       "宅仓库": true,
       "移动": true,
-      "夸克": true
+      "夸克": false
     }
   },
   "Pixiv-Shaft": {
@@ -28,7 +28,7 @@
   },
   "cojibrowser": {
     "version": "1.8.5",
-    "last_sync": "2026-09-28 11:46:53",
+    "last_sync": "2026-09-25 18:56:13",
     "drives": {
       "宅仓库": true,
       "夸克": true,
