@@ -252,11 +252,11 @@
     }
   },
   "Motrix": {
-    "version": "v3.1.0",
-    "last_sync": "2026-10-12 06:41:21",
+    "version": "v3.2.0",
+    "last_sync": "2026-10-22 15:08:03",
     "drives": {
       "宅仓库": true,
-      "夸克": true,
+      "夸克": false,
       "移动": true
     }
   },
