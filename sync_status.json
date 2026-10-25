@@ -63,8 +63,8 @@
     }
   },
   "Kazumi": {
-    "version": "2.4.1",
-    "last_sync": "2026-10-22 15:40:45",
+    "version": "2.4.2",
+    "last_sync": "2026-10-25 16:07:29",
     "drives": {
       "宅仓库": true,
       "夸克": false,
@@ -220,7 +220,7 @@
     "last_sync": "2026-10-22 13:37:48",
     "drives": {
       "宅仓库": true,
-      "夸克": false,
+      "夸克": true,
       "移动": true
     }
   },
@@ -256,7 +256,7 @@
     "last_sync": "2026-10-22 15:08:03",
     "drives": {
       "宅仓库": true,
-      "夸克": false,
+      "夸克": true,
       "移动": true
     }
   },

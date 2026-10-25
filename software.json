@@ -152,8 +152,8 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "2.4.1",
-      "last_sync_time": "2026-10-22 15:40:45",
+      "last_sync_version": "2.4.2",
+      "last_sync_time": "2026-10-25 16:07:29",
       "status": "success"
     },
     {
@@ -175,7 +175,7 @@
       "include_prerelease": false,
       "last_sync_version": "v3.2.0",
       "last_sync_time": "2026-10-22 15:08:03",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "mangayomi",
@@ -259,7 +259,7 @@
       "include_prerelease": false,
       "last_sync_version": "v1.8.2",
       "last_sync_time": "2026-10-22 13:37:48",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "BilibiliSponsorBlock",
@@ -745,5 +745,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-10-25 15:38:02"
+  "last_run_time": "2026-10-25 16:07:29"
 }
