@@ -54,11 +54,11 @@
     }
   },
   "animeko": {
-    "version": "v6.3.0",
-    "last_sync": "2026-10-13 18:17:28",
+    "version": "v6.4.0",
+    "last_sync": "2026-10-25 14:49:39",
     "drives": {
       "宅仓库": true,
-      "夸克": true,
+      "夸克": false,
       "移动": true
     }
   },
