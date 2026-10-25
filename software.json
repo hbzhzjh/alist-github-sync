@@ -488,9 +488,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v1.5.8",
-      "last_sync_time": "2026-10-16 13:02:34",
-      "status": "success (最新)"
+      "last_sync_version": "v1.5.9",
+      "last_sync_time": "2026-10-25 14:58:56",
+      "status": "success"
     },
     {
       "name": "aura-tab",
@@ -595,7 +595,7 @@
       "include_prerelease": false,
       "last_sync_version": "6.1.4",
       "last_sync_time": "2026-10-22 13:35:01",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "OpenSpeedy",
@@ -745,5 +745,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-10-25 14:49:39"
+  "last_run_time": "2026-10-25 14:58:56"
 }

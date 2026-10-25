@@ -28,7 +28,7 @@
   },
   "cojibrowser": {
     "version": "1.8.5",
-    "last_sync": "2026-09-25 18:56:13",
+    "last_sync": "2026-09-28 11:46:53",
     "drives": {
       "宅仓库": true,
       "夸克": true,
@@ -94,7 +94,7 @@
     "last_sync": "2026-10-22 13:35:01",
     "drives": {
       "宅仓库": true,
-      "夸克": false,
+      "夸克": true,
       "移动": true
     }
   },
@@ -117,11 +117,11 @@
     }
   },
   "DeskBox": {
-    "version": "v1.5.8",
-    "last_sync": "2026-10-16 13:02:34",
+    "version": "v1.5.9",
+    "last_sync": "2026-10-25 14:58:56",
     "drives": {
       "宅仓库": true,
-      "夸克": true,
+      "夸克": false,
       "移动": true
     }
   },
