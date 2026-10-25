@@ -162,11 +162,11 @@
     }
   },
   "Zangetsu": {
-    "version": "v2.3.2",
-    "last_sync": "2026-10-16 13:55:42",
+    "version": "v2.3.3",
+    "last_sync": "2026-10-25 15:32:43",
     "drives": {
       "宅仓库": true,
-      "夸克": true,
+      "夸克": false,
       "移动": true
     }
   },
