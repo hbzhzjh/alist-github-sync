@@ -207,11 +207,11 @@
     }
   },
   "BilibiliSponsorBlock": {
-    "version": "0.17.0",
-    "last_sync": "2026-10-19 15:23:05",
+    "version": "0.17.1",
+    "last_sync": "2026-10-25 15:38:02",
     "drives": {
       "宅仓库": true,
-      "夸克": true,
+      "夸克": false,
       "移动": true
     }
   },
