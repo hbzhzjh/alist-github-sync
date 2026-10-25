@@ -28,7 +28,7 @@
       "include_prerelease": false,
       "last_sync_version": "0.9.112",
       "last_sync_time": "2026-10-22 16:14:58",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "Pixiv-Shaft",
@@ -745,5 +745,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-10-25 16:07:29"
+  "last_run_time": "2026-10-25 16:07:31"
 }
