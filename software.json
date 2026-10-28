@@ -133,7 +133,7 @@
       "include_prerelease": false,
       "last_sync_version": "v19.6.0",
       "last_sync_time": "2026-10-28 07:45:16",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "Kazumi",
@@ -175,7 +175,7 @@
       "include_prerelease": false,
       "last_sync_version": "v3.3.0",
       "last_sync_time": "2026-10-28 07:43:36",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "mangayomi",
@@ -364,7 +364,7 @@
       "include_prerelease": false,
       "last_sync_version": "v3.2.0",
       "last_sync_time": "2026-10-28 05:53:17",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "Zangetsu",
@@ -469,7 +469,7 @@
       "include_prerelease": false,
       "last_sync_version": "v1.0.0",
       "last_sync_time": "2026-10-28 04:53:38",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "DeskBox",
@@ -766,5 +766,5 @@
       "status": "success"
     }
   ],
-  "last_run_time": "2026-10-28 14:45:00"
+  "last_run_time": "2026-10-28 14:45:12"
 }
