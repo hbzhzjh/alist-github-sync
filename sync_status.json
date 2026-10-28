@@ -313,5 +313,14 @@
       "夸克": true,
       "移动": true
     }
+  },
+  "Ghost-Downloader-3": {
+    "version": "v4.4.5",
+    "last_sync": "2026-10-28 16:59:24",
+    "drives": {
+      "宅仓库": true,
+      "夸克": true,
+      "移动": true
+    }
   }
 }
