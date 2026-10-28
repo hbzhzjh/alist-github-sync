@@ -131,9 +131,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v19.5.0",
-      "last_sync_time": "2026-10-10 15:49:45",
-      "status": "success (最新)"
+      "last_sync_version": "v19.6.0",
+      "last_sync_time": "2026-10-28 07:45:16",
+      "status": "success"
     },
     {
       "name": "Kazumi",
@@ -154,7 +154,7 @@
       "include_prerelease": false,
       "last_sync_version": "2.4.2",
       "last_sync_time": "2026-10-25 16:07:29",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "Motrix",
@@ -766,5 +766,5 @@
       "status": "success"
     }
   ],
-  "last_run_time": "2026-10-28 07:43:36"
+  "last_run_time": "2026-10-28 07:45:16"
 }
