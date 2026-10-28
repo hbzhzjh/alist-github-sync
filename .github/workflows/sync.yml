@@ -2,7 +2,7 @@ name: AList GitHub Auto Sync
 
 on:
   schedule:
-    - cron: '0 8 */3 * *'
+    - cron: '0 8,20 * * *'
   workflow_dispatch: # 支持在 WordPress 后台或 GitHub 网页手动点击触发
   push:
     paths:
@@ -42,6 +42,7 @@ jobs:
           python sync.py
 
       - name: Commit and Push Status Updates
+        if: always() # 关键保障：即使同步引擎超时或中断，始终保全并提交已完成的软件状态
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action Bot"
