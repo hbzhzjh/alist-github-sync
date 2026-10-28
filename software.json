@@ -173,9 +173,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v3.2.0",
-      "last_sync_time": "2026-10-22 15:08:03",
-      "status": "success (最新)"
+      "last_sync_version": "v3.3.0",
+      "last_sync_time": "2026-10-28 07:43:36",
+      "status": "success"
     },
     {
       "name": "mangayomi",
@@ -280,7 +280,7 @@
       "include_prerelease": false,
       "last_sync_version": "0.17.1",
       "last_sync_time": "2026-10-25 15:38:02",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "mpv.net-DW",
@@ -766,5 +766,5 @@
       "status": "success"
     }
   ],
-  "last_run_time": "2026-10-28 05:53:17"
+  "last_run_time": "2026-10-28 07:43:36"
 }

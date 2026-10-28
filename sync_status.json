@@ -211,7 +211,7 @@
     "last_sync": "2026-10-25 15:38:02",
     "drives": {
       "宅仓库": true,
-      "夸克": false,
+      "夸克": true,
       "移动": true
     }
   },
@@ -252,8 +252,8 @@
     }
   },
   "Motrix": {
-    "version": "v3.2.0",
-    "last_sync": "2026-10-22 15:08:03",
+    "version": "v3.3.0",
+    "last_sync": "2026-10-28 07:43:36",
     "drives": {
       "宅仓库": true,
       "夸克": true,
