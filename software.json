@@ -656,9 +656,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": true,
-      "last_sync_version": "v0.2.21",
-      "last_sync_time": "2026-10-19 15:11:09",
-      "status": "success (最新)"
+      "last_sync_version": "v0.2.22",
+      "last_sync_time": "2026-10-28 14:45:00",
+      "status": "success"
     },
     {
       "name": "PiPixiv",
@@ -766,5 +766,5 @@
       "status": "success"
     }
   ],
-  "last_run_time": "2026-10-28 14:43:21"
+  "last_run_time": "2026-10-28 14:45:00"
 }
