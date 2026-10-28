@@ -28,7 +28,7 @@
   },
   "cojibrowser": {
     "version": "1.8.5",
-    "last_sync": "2026-09-25 18:56:13",
+    "last_sync": "2026-09-28 11:46:53",
     "drives": {
       "宅仓库": true,
       "夸克": true,
@@ -58,7 +58,7 @@
     "last_sync": "2026-10-25 14:49:39",
     "drives": {
       "宅仓库": true,
-      "夸克": false,
+      "夸克": true,
       "移动": true
     }
   },
@@ -121,13 +121,13 @@
     "last_sync": "2026-10-25 14:58:56",
     "drives": {
       "宅仓库": true,
-      "夸克": false,
+      "夸克": true,
       "移动": true
     }
   },
   "bili-music": {
-    "version": "v0.8.0",
-    "last_sync": "2026-09-28 12:27:01",
+    "version": "v1.0.0",
+    "last_sync": "2026-10-28 04:53:38",
     "drives": {
       "宅仓库": true,
       "夸克": true,

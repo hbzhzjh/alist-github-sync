@@ -467,9 +467,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v0.8.0",
-      "last_sync_time": "2026-09-28 12:27:01",
-      "status": "success (最新)"
+      "last_sync_version": "v1.0.0",
+      "last_sync_time": "2026-10-28 04:53:38",
+      "status": "success"
     },
     {
       "name": "DeskBox",
@@ -490,7 +490,7 @@
       "include_prerelease": false,
       "last_sync_version": "v1.5.9",
       "last_sync_time": "2026-10-25 14:58:56",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "aura-tab",
@@ -637,7 +637,7 @@
       "include_prerelease": false,
       "last_sync_version": "v6.4.0",
       "last_sync_time": "2026-10-25 14:49:39",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "DiPlay",
@@ -766,5 +766,5 @@
       "status": "success"
     }
   ],
-  "last_run_time": "2026-10-28 04:49:03"
+  "last_run_time": "2026-10-28 04:53:38"
 }
