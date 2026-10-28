@@ -20,7 +20,7 @@ import subprocess
 import requests
 
 # 引擎版本定义 (支持最新添加优先同步、下载前网盘前置预检与单软件即时断点固化)
-ENGINE_VERSION = "1.9.6"
+ENGINE_VERSION = "1.9.7"
 
 # 全局路径与环境变量配置 (提前声明，防止未定义引用)
 SOFTWARE_JSON_PATH = os.environ.get("SOFTWARE_JSON_PATH", "software.json")
@@ -749,6 +749,15 @@ def sync_software_item(item: dict, default_remote_dir: str = "", default_disguis
             "drives": drives_status
         }
         return True, (name, status_info), detail
+
+    # ------------------------------------------------------------------
+    # 体验优化：极速预建所有目标网盘的版本目录
+    # 确保用户在后台下载与上传刚启动的第 1 秒，即可打开所有网盘界面获取目录分享链接
+    # ------------------------------------------------------------------
+    print(f"\n[体验优化] 正在向全部 {len(drive_names)} 个目标网盘预先创建版本目录...")
+    for dname, target_dir in drive_names:
+        pre_remote_dir = f"{target_dir.rstrip('/')}/{name}/{tag_name}"
+        alist_mkdir(pre_remote_dir)
 
     # 使用临时工作目录下载与打包
     with tempfile.TemporaryDirectory(prefix="alist_sync_") as tmp_dir:
