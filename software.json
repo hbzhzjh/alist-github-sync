@@ -782,10 +782,10 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v4.4.5",
-      "last_sync_time": "2026-10-28 16:59:24",
+      "last_sync_version": "v4.4.6",
+      "last_sync_time": "2026-10-29 01:02:25",
       "status": "success"
     }
   ],
-  "last_run_time": "2026-10-28 16:59:37"
+  "last_run_time": "2026-10-29 01:02:25"
 }
