@@ -257,9 +257,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v1.8.2",
-      "last_sync_time": "2026-10-22 13:37:48",
-      "status": "success (最新)"
+      "last_sync_version": "v1.8.3",
+      "last_sync_time": "2026-10-29 15:42:06",
+      "status": "success"
     },
     {
       "name": "BilibiliSponsorBlock",
@@ -787,5 +787,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-10-29 15:40:16"
+  "last_run_time": "2026-10-29 15:42:06"
 }
