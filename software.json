@@ -236,9 +236,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "2.4.8.1",
-      "last_sync_time": "2026-09-30 18:07:25",
-      "status": "success (最新)"
+      "last_sync_version": "2.5.2",
+      "last_sync_time": "2026-10-30 16:16:24",
+      "status": "success"
     },
     {
       "name": "BewlyCat",
@@ -385,7 +385,7 @@
       "include_prerelease": false,
       "last_sync_version": "v2.3.4",
       "last_sync_time": "2026-10-30 00:26:04",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "koharu",
@@ -787,5 +787,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-10-30 00:26:11"
+  "last_run_time": "2026-10-30 16:16:24"
 }
