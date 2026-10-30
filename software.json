@@ -133,7 +133,7 @@
       "include_prerelease": false,
       "last_sync_version": "v19.6.1",
       "last_sync_time": "2026-10-29 15:43:46",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "Kazumi",
@@ -259,7 +259,7 @@
       "include_prerelease": false,
       "last_sync_version": "v1.8.3",
       "last_sync_time": "2026-10-29 15:42:06",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "BilibiliSponsorBlock",
@@ -787,5 +787,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-10-30 00:26:04"
+  "last_run_time": "2026-10-30 00:26:11"
 }
