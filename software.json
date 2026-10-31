@@ -761,9 +761,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v0.2.5",
-      "last_sync_time": "2026-10-29 14:53:59",
-      "status": "success (最新)"
+      "last_sync_version": "v0.2.6",
+      "last_sync_time": "2026-10-31 14:11:35",
+      "status": "success"
     },
     {
       "name": "Ghost-Downloader-3",
@@ -787,5 +787,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-10-30 23:25:13"
+  "last_run_time": "2026-10-31 14:11:35"
 }
