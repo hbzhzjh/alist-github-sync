@@ -175,7 +175,7 @@
       "include_prerelease": false,
       "last_sync_version": "v3.4.0",
       "last_sync_time": "2026-10-31 17:56:57",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "mangayomi",
@@ -238,7 +238,7 @@
       "include_prerelease": false,
       "last_sync_version": "2.5.2.1",
       "last_sync_time": "2026-10-31 16:08:18",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "BewlyCat",
@@ -787,5 +787,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-10-31 22:59:04"
+  "last_run_time": "2026-10-31 22:59:15"
 }
