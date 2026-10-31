@@ -173,9 +173,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v3.3.0",
-      "last_sync_time": "2026-10-28 07:43:36",
-      "status": "success (最新)"
+      "last_sync_version": "v3.4.0",
+      "last_sync_time": "2026-10-31 17:56:57",
+      "status": "success"
     },
     {
       "name": "mangayomi",
@@ -787,5 +787,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-10-31 16:08:18"
+  "last_run_time": "2026-10-31 17:56:57"
 }
