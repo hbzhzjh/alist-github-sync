@@ -383,9 +383,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v2.3.4",
-      "last_sync_time": "2026-10-30 00:26:04",
-      "status": "success (最新)"
+      "last_sync_version": "v2.3.5",
+      "last_sync_time": "2026-11-01 23:56:49",
+      "status": "success"
     },
     {
       "name": "koharu",
@@ -787,5 +787,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-11-01 14:39:58"
+  "last_run_time": "2026-11-01 23:56:49"
 }
