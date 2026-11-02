@@ -28,7 +28,7 @@
       "include_prerelease": false,
       "last_sync_version": "0.9.113",
       "last_sync_time": "2026-11-02 04:21:46",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "Pixiv-Shaft",
@@ -196,7 +196,7 @@
       "include_prerelease": false,
       "last_sync_version": "v0.9.95",
       "last_sync_time": "2026-11-02 03:40:01",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "Ventoy",
@@ -238,7 +238,7 @@
       "include_prerelease": false,
       "last_sync_version": "2.5.2.2",
       "last_sync_time": "2026-11-02 01:36:13",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "BewlyCat",
@@ -385,7 +385,7 @@
       "include_prerelease": false,
       "last_sync_version": "v2.3.5",
       "last_sync_time": "2026-11-01 23:56:49",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "koharu",
@@ -787,5 +787,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-11-02 04:21:47"
+  "last_run_time": "2026-11-02 17:40:24"
 }
