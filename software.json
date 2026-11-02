@@ -194,9 +194,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v0.9.9",
-      "last_sync_time": "2026-10-16 17:26:02",
-      "status": "success (最新)"
+      "last_sync_version": "v0.9.95",
+      "last_sync_time": "2026-11-02 03:40:01",
+      "status": "success"
     },
     {
       "name": "Ventoy",
@@ -787,5 +787,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-11-02 01:36:13"
+  "last_run_time": "2026-11-02 03:40:01"
 }
