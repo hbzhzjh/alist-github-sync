@@ -49,7 +49,7 @@
       "include_prerelease": false,
       "last_sync_version": "v4.9.9",
       "last_sync_time": "2026-11-03 16:00:47",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "pixiv-viewer-app",
@@ -808,5 +808,5 @@
       "status": "success"
     }
   ],
-  "last_run_time": "2026-11-03 18:24:03"
+  "last_run_time": "2026-11-03 18:24:21"
 }
