@@ -322,5 +322,14 @@
       "夸克": true,
       "移动": true
     }
+  },
+  "maidong-ktv": {
+    "version": "v1.5.10",
+    "last_sync": "2026-11-03 17:04:42",
+    "drives": {
+      "宅仓库": true,
+      "夸克": true,
+      "移动": true
+    }
   }
 }
