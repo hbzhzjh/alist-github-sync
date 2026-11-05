@@ -154,7 +154,7 @@
       "include_prerelease": false,
       "last_sync_version": "2.4.3",
       "last_sync_time": "2026-11-04 16:57:04",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "Motrix",
@@ -808,5 +808,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-11-04 16:57:07"
+  "last_run_time": "2026-11-05 00:41:44"
 }
