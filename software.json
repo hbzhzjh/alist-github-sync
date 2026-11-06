@@ -784,7 +784,7 @@
       "include_prerelease": false,
       "last_sync_version": "v4.4.7",
       "last_sync_time": "2026-11-05 17:39:36",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "maidong-ktv",
@@ -808,5 +808,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-11-05 17:39:47"
+  "last_run_time": "2026-11-06 00:39:46"
 }
