@@ -252,8 +252,8 @@
     }
   },
   "Motrix": {
-    "version": "v3.4.0",
-    "last_sync": "2026-10-31 17:56:57",
+    "version": "v3.5.0",
+    "last_sync": "2026-11-08 15:39:12",
     "drives": {
       "宅仓库": true,
       "夸克": true,
@@ -352,11 +352,10 @@
   },
   "dsh-go": {
     "version": "v1.0.13",
-    "last_sync": "2026-11-08 07:48:14",
+    "last_sync": "2026-11-08 15:17:57",
     "drives": {
       "宅仓库": true,
-      "夸克": true,
-      "移动": false
+      "夸克": true
     }
   },
   "WhoShitsonMyC": {
