@@ -173,9 +173,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v3.4.0",
-      "last_sync_time": "2026-10-31 17:56:57",
-      "status": "success (最新)"
+      "last_sync_version": "v3.5.0",
+      "last_sync_time": "2026-11-08 15:39:12",
+      "status": "success"
     },
     {
       "name": "mangayomi",
@@ -826,7 +826,7 @@
       "include_prerelease": false,
       "last_sync_version": "v1.1.8",
       "last_sync_time": "2026-11-08 07:50:21",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "dsh-go",
@@ -934,5 +934,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-11-08 15:17:57"
+  "last_run_time": "2026-11-08 15:39:12"
 }
