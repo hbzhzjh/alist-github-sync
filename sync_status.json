@@ -340,5 +340,14 @@
       "夸克": true,
       "移动": true
     }
+  },
+  "YunX": {
+    "version": "v1.3.1",
+    "last_sync": "2026-11-08 06:48:30",
+    "drives": {
+      "宅仓库": true,
+      "夸克": true,
+      "移动": true
+    }
   }
 }

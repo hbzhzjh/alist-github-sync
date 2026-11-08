@@ -859,7 +859,10 @@
       "disguise_mode": "default",
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
-      "include_prerelease": false
+      "include_prerelease": false,
+      "last_sync_version": "v1.3.1",
+      "last_sync_time": "2026-11-08 06:48:30",
+      "status": "success"
     },
     {
       "name": "YunX-Desktop",
@@ -883,5 +886,5 @@
       "status": "success"
     }
   ],
-  "last_run_time": "2026-11-08 06:47:24"
+  "last_run_time": "2026-11-08 06:48:30"
 }
