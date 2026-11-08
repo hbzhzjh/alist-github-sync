@@ -331,5 +331,14 @@
       "夸克": true,
       "移动": true
     }
+  },
+  "YunX-Desktop": {
+    "version": "v1.3.3",
+    "last_sync": "2026-11-08 06:47:24",
+    "drives": {
+      "宅仓库": true,
+      "夸克": true,
+      "移动": true
+    }
   }
 }
