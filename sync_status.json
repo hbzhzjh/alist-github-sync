@@ -358,5 +358,14 @@
       "夸克": true,
       "移动": false
     }
+  },
+  "WhoShitsonMyC": {
+    "version": "v1.1.8",
+    "last_sync": "2026-11-08 07:50:21",
+    "drives": {
+      "宅仓库": true,
+      "夸克": true,
+      "移动": true
+    }
   }
 }
