@@ -367,5 +367,14 @@
       "夸克": true,
       "移动": true
     }
+  },
+  "gezi-quark-downloader": {
+    "version": "v2.4.0",
+    "last_sync": "2026-11-08 13:20:47",
+    "drives": {
+      "宅仓库": true,
+      "夸克": true,
+      "移动": true
+    }
   }
 }
