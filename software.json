@@ -844,7 +844,10 @@
       "disguise_mode": "default",
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
-      "include_prerelease": false
+      "include_prerelease": false,
+      "last_sync_version": "v1.0.13",
+      "last_sync_time": "2026-11-08 15:17:57",
+      "status": "success (前置预检命中)"
     },
     {
       "name": "YunX",
@@ -865,7 +868,7 @@
       "include_prerelease": false,
       "last_sync_version": "v1.3.1",
       "last_sync_time": "2026-11-08 06:48:30",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "YunX-Desktop",
@@ -886,7 +889,7 @@
       "include_prerelease": false,
       "last_sync_version": "v1.3.3",
       "last_sync_time": "2026-11-08 06:47:24",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "AnimeFlow",
@@ -931,5 +934,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-11-08 15:17:52"
+  "last_run_time": "2026-11-08 15:17:57"
 }
