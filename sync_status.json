@@ -349,5 +349,14 @@
       "夸克": true,
       "移动": true
     }
+  },
+  "dsh-go": {
+    "version": "v1.0.13",
+    "last_sync": "2026-11-08 07:48:14",
+    "drives": {
+      "宅仓库": true,
+      "夸克": true,
+      "移动": false
+    }
   }
 }
