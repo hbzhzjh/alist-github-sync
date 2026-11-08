@@ -376,5 +376,14 @@
       "夸克": true,
       "移动": true
     }
+  },
+  "AnimeFlow": {
+    "version": "v2.6.7",
+    "last_sync": "2026-11-08 15:20:33",
+    "drives": {
+      "宅仓库": true,
+      "夸克": true,
+      "移动": true
+    }
   }
 }
