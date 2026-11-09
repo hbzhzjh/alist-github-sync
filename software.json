@@ -28,7 +28,7 @@
       "include_prerelease": false,
       "last_sync_version": "0.9.114",
       "last_sync_time": "2026-11-09 00:54:04",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "Pixiv-Shaft",
@@ -175,7 +175,7 @@
       "include_prerelease": false,
       "last_sync_version": "v3.5.0",
       "last_sync_time": "2026-11-08 23:27:19",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "mangayomi",
@@ -934,5 +934,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-11-09 20:18:46"
+  "last_run_time": "2026-11-09 20:18:58"
 }
