@@ -616,7 +616,7 @@
       "include_prerelease": false,
       "last_sync_version": "3.3.18",
       "last_sync_time": "2026-11-10 02:33:52",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "animeko",
@@ -934,5 +934,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-11-10 16:16:15"
+  "last_run_time": "2026-11-10 16:16:25"
 }
