@@ -845,9 +845,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v1.0.14",
-      "last_sync_time": "2026-11-09 18:24:20",
-      "status": "success (最新)"
+      "last_sync_version": "v1.0.15",
+      "last_sync_time": "2026-11-10 16:16:15",
+      "status": "success"
     },
     {
       "name": "YunX",
@@ -934,5 +934,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-11-10 02:34:01"
+  "last_run_time": "2026-11-10 16:16:15"
 }
