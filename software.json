@@ -152,9 +152,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "2.4.3",
-      "last_sync_time": "2026-11-04 16:57:04",
-      "status": "success (最新)"
+      "last_sync_version": "2.4.4",
+      "last_sync_time": "2026-11-12 17:22:22",
+      "status": "success"
     },
     {
       "name": "Motrix",
@@ -784,7 +784,7 @@
       "include_prerelease": false,
       "last_sync_version": "v4.5.2",
       "last_sync_time": "2026-11-12 03:26:32",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "maidong-ktv",
@@ -934,5 +934,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-11-12 03:26:41"
+  "last_run_time": "2026-11-12 17:22:22"
 }
