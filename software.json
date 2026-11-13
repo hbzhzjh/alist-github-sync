@@ -887,9 +887,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v1.3.3",
-      "last_sync_time": "2026-11-08 06:47:24",
-      "status": "success (最新)"
+      "last_sync_version": "v1.3.4",
+      "last_sync_time": "2026-11-13 16:55:27",
+      "status": "success"
     },
     {
       "name": "AnimeFlow",
@@ -934,5 +934,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-11-13 03:35:37"
+  "last_run_time": "2026-11-13 16:55:27"
 }
