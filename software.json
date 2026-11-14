@@ -782,9 +782,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v4.5.2",
-      "last_sync_time": "2026-11-12 03:26:32",
-      "status": "success (最新)"
+      "last_sync_version": "v4.5.3",
+      "last_sync_time": "2026-11-14 16:52:11",
+      "status": "success"
     },
     {
       "name": "maidong-ktv",
@@ -910,7 +910,7 @@
       "include_prerelease": false,
       "last_sync_version": "v2.6.8",
       "last_sync_time": "2026-11-14 02:18:24",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "gezi-quark-downloader",
@@ -934,5 +934,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-11-14 05:46:45"
+  "last_run_time": "2026-11-14 16:52:11"
 }
