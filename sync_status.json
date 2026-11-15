@@ -368,8 +368,8 @@
     }
   },
   "gezi-quark-downloader": {
-    "version": "v2.4.0",
-    "last_sync": "2026-11-08 13:20:47",
+    "version": "v2.4.4",
+    "last_sync": "2026-11-15 15:12:09",
     "drives": {
       "宅仓库": true,
       "夸克": true,

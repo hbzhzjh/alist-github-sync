@@ -929,10 +929,10 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v2.4.0",
-      "last_sync_time": "2026-11-08 13:20:47",
-      "status": "success (最新)"
+      "last_sync_version": "v2.4.4",
+      "last_sync_time": "2026-11-15 15:12:09",
+      "status": "success"
     }
   ],
-  "last_run_time": "2026-11-15 02:46:27"
+  "last_run_time": "2026-11-15 15:12:09"
 }
