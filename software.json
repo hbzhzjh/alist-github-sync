@@ -196,7 +196,7 @@
       "include_prerelease": false,
       "last_sync_version": "v0.9.96",
       "last_sync_time": "2026-11-15 02:46:23",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "Ventoy",
@@ -742,7 +742,7 @@
       "include_prerelease": false,
       "last_sync_version": "v2.5.5",
       "last_sync_time": "2026-11-15 01:58:47",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "leancast",
@@ -784,7 +784,7 @@
       "include_prerelease": false,
       "last_sync_version": "v4.5.4",
       "last_sync_time": "2026-11-15 01:43:01",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "maidong-ktv",
@@ -934,5 +934,5 @@
       "status": "success"
     }
   ],
-  "last_run_time": "2026-11-15 15:32:13"
+  "last_run_time": "2026-11-15 15:32:21"
 }
