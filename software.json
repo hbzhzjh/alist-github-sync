@@ -194,9 +194,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v0.9.95",
-      "last_sync_time": "2026-11-02 03:40:01",
-      "status": "success (最新)"
+      "last_sync_version": "v0.9.96",
+      "last_sync_time": "2026-11-15 02:46:23",
+      "status": "success"
     },
     {
       "name": "Ventoy",
@@ -385,7 +385,7 @@
       "include_prerelease": false,
       "last_sync_version": "v2.3.6",
       "last_sync_time": "2026-11-14 17:59:36",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "koharu",
@@ -616,7 +616,7 @@
       "include_prerelease": false,
       "last_sync_version": "3.3.19",
       "last_sync_time": "2026-11-14 16:56:38",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "animeko",
@@ -934,5 +934,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-11-15 01:58:47"
+  "last_run_time": "2026-11-15 02:46:23"
 }
