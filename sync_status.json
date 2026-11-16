@@ -384,5 +384,14 @@
       "夸克": true,
       "移动": true
     }
+  },
+  "xiaotang-daozai": {
+    "version": "v0.6.65",
+    "last_sync": "2026-11-16 07:47:22",
+    "drives": {
+      "宅仓库": true,
+      "夸克": true,
+      "移动": true
+    }
   }
 }
