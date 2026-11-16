@@ -782,9 +782,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v4.5.4",
-      "last_sync_time": "2026-11-15 01:43:01",
-      "status": "success (最新)"
+      "last_sync_version": "v4.5.5",
+      "last_sync_time": "2026-11-16 19:38:58",
+      "status": "success"
     },
     {
       "name": "maidong-ktv",
@@ -826,7 +826,7 @@
       "include_prerelease": false,
       "last_sync_version": "v1.2.0",
       "last_sync_time": "2026-11-16 07:50:19",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "dsh-go",
@@ -952,8 +952,8 @@
       "include_prerelease": false,
       "last_sync_version": "v0.6.65",
       "last_sync_time": "2026-11-16 07:47:22",
-      "status": "success"
+      "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-11-16 07:54:36"
+  "last_run_time": "2026-11-16 19:38:58"
 }
