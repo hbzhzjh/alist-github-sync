@@ -782,9 +782,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v4.5.5",
-      "last_sync_time": "2026-11-16 19:38:58",
-      "status": "success (最新)"
+      "last_sync_version": "v4.5.7",
+      "last_sync_time": "2026-11-17 19:14:44",
+      "status": "success"
     },
     {
       "name": "maidong-ktv",
@@ -955,5 +955,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-11-17 02:44:10"
+  "last_run_time": "2026-11-17 19:14:44"
 }
