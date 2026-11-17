@@ -574,7 +574,7 @@
       "include_prerelease": false,
       "last_sync_version": "8.42.0",
       "last_sync_time": "2026-11-16 19:50:15",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "EasyBangumi",
@@ -784,7 +784,7 @@
       "include_prerelease": false,
       "last_sync_version": "v4.5.5",
       "last_sync_time": "2026-11-16 19:38:58",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "maidong-ktv",
@@ -955,5 +955,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-11-16 19:50:25"
+  "last_run_time": "2026-11-17 02:44:10"
 }
