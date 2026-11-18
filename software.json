@@ -404,9 +404,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "0.83.5",
-      "last_sync_time": "2026-09-29 21:13:52",
-      "status": "success (最新)"
+      "last_sync_version": "0.85.2",
+      "last_sync_time": "2026-11-18 05:37:55",
+      "status": "success"
     },
     {
       "name": "KikoPlay",
@@ -679,7 +679,7 @@
       "include_prerelease": false,
       "last_sync_version": "v2.6.1",
       "last_sync_time": "2026-11-17 20:19:32",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "DLSS-NR-on-AMD",
@@ -955,5 +955,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-11-18 03:10:36"
+  "last_run_time": "2026-11-18 05:37:55"
 }
