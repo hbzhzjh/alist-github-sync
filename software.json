@@ -721,7 +721,7 @@
       "include_prerelease": false,
       "last_sync_version": "v2.8.2",
       "last_sync_time": "2026-11-18 03:10:36",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "Game-Cheats-Manager",
@@ -955,5 +955,5 @@
       "status": "success"
     }
   ],
-  "last_run_time": "2026-11-18 19:20:13"
+  "last_run_time": "2026-11-18 19:20:15"
 }
