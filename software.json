@@ -950,10 +950,10 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v0.6.65",
-      "last_sync_time": "2026-11-16 07:47:22",
-      "status": "success (最新)"
+      "last_sync_version": "v0.6.66",
+      "last_sync_time": "2026-11-18 16:55:32",
+      "status": "success"
     }
   ],
-  "last_run_time": "2026-11-18 05:37:59"
+  "last_run_time": "2026-11-18 16:55:32"
 }
