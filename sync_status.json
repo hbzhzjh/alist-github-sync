@@ -393,5 +393,14 @@
       "夸克": true,
       "移动": true
     }
+  },
+  "so-novel": {
+    "version": "v1.12.0",
+    "last_sync": "2026-11-19 20:04:33",
+    "drives": {
+      "宅仓库": true,
+      "夸克": true,
+      "移动": true
+    }
   }
 }
