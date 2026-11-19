@@ -635,9 +635,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v6.4.0",
-      "last_sync_time": "2026-10-25 14:49:39",
-      "status": "success (最新)"
+      "last_sync_version": "v6.4.1",
+      "last_sync_time": "2026-11-19 02:17:51",
+      "status": "success"
     },
     {
       "name": "DiPlay",
@@ -784,7 +784,7 @@
       "include_prerelease": false,
       "last_sync_version": "v4.5.8",
       "last_sync_time": "2026-11-18 19:20:13",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "maidong-ktv",
@@ -847,7 +847,7 @@
       "include_prerelease": false,
       "last_sync_version": "v1.2.0",
       "last_sync_time": "2026-11-18 17:14:13",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "YunX",
@@ -952,8 +952,8 @@
       "include_prerelease": false,
       "last_sync_version": "v0.6.66",
       "last_sync_time": "2026-11-18 16:55:32",
-      "status": "success"
+      "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-11-18 19:20:15"
+  "last_run_time": "2026-11-19 02:17:51"
 }
