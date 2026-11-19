@@ -404,8 +404,8 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "0.85.2",
-      "last_sync_time": "2026-11-18 05:37:55",
+      "last_sync_version": "0.85.6",
+      "last_sync_time": "2026-11-19 07:18:49",
       "status": "success"
     },
     {
@@ -955,5 +955,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-11-19 02:17:51"
+  "last_run_time": "2026-11-19 07:18:49"
 }
