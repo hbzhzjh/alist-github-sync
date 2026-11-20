@@ -404,9 +404,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "0.85.6",
-      "last_sync_time": "2026-11-19 07:18:49",
-      "status": "warning: 资产列表为空"
+      "last_sync_version": "0.86.4",
+      "last_sync_time": "2026-11-20 06:36:13",
+      "status": "success"
     },
     {
       "name": "KikoPlay",
@@ -784,7 +784,7 @@
       "include_prerelease": false,
       "last_sync_version": "v4.5.10",
       "last_sync_time": "2026-11-19 19:28:19",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "maidong-ktv",
@@ -973,8 +973,8 @@
       "include_prerelease": false,
       "last_sync_version": "v1.12.0",
       "last_sync_time": "2026-11-19 20:04:33",
-      "status": "success"
+      "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-11-19 19:28:19"
+  "last_run_time": "2026-11-20 06:36:13"
 }

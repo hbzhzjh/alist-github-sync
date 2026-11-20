@@ -28,7 +28,7 @@
   },
   "cojibrowser": {
     "version": "1.8.5",
-    "last_sync": "2026-09-25 18:56:13",
+    "last_sync": "2026-09-28 11:46:53",
     "drives": {
       "宅仓库": true,
       "夸克": true,
@@ -153,8 +153,8 @@
     }
   },
   "koharu": {
-    "version": "0.85.6",
-    "last_sync": "2026-11-19 07:18:49",
+    "version": "0.86.4",
+    "last_sync": "2026-11-20 06:36:13",
     "drives": {
       "宅仓库": true,
       "夸克": true,
