@@ -20,7 +20,7 @@ import subprocess
 import requests
 
 # 引擎版本定义 (支持最新添加优先同步、下载前网盘前置预检与单软件即时断点固化)
-ENGINE_VERSION = "1.9.7"
+ENGINE_VERSION = "2.2.0"
 
 # 全局路径与环境变量配置 (提前声明，防止未定义引用)
 SOFTWARE_JSON_PATH = os.environ.get("SOFTWARE_JSON_PATH", "software.json")
