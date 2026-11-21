@@ -402,5 +402,14 @@
       "夸克": true,
       "移动": true
     }
+  },
+  "misterdownloadmanager": {
+    "version": "v0.5.2",
+    "last_sync": "2026-11-21 14:32:33",
+    "drives": {
+      "宅仓库": true,
+      "夸克": true,
+      "移动": true
+    }
   }
 }
