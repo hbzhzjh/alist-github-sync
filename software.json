@@ -614,9 +614,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "3.3.20",
-      "last_sync_time": "2026-11-16 07:54:28",
-      "status": "success (最新)"
+      "last_sync_version": "3.5.0",
+      "last_sync_time": "2026-11-21 15:05:51",
+      "status": "success"
     },
     {
       "name": "animeko",
@@ -784,7 +784,7 @@
       "include_prerelease": false,
       "last_sync_version": "v4.5.11",
       "last_sync_time": "2026-11-20 18:36:00",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "maidong-ktv",
@@ -1020,5 +1020,5 @@
       "status": "success"
     }
   ],
-  "last_run_time": "2026-11-21 15:00:29"
+  "last_run_time": "2026-11-21 15:05:51"
 }
