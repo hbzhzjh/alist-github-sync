@@ -404,8 +404,8 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "0.86.4",
-      "last_sync_time": "2026-11-20 06:36:13",
+      "last_sync_version": "0.90.3",
+      "last_sync_time": "2026-11-21 19:04:15",
       "status": "success"
     },
     {
@@ -1020,5 +1020,5 @@
       "status": "success"
     }
   ],
-  "last_run_time": "2026-11-21 15:05:51"
+  "last_run_time": "2026-11-21 19:04:15"
 }

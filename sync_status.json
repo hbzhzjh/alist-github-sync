@@ -153,12 +153,12 @@
     }
   },
   "koharu": {
-    "version": "0.86.4",
-    "last_sync": "2026-11-20 06:36:13",
+    "version": "0.90.3",
+    "last_sync": "2026-11-21 19:04:15",
     "drives": {
       "宅仓库": true,
-      "夸克": true,
-      "移动": true
+      "夸克": false,
+      "移动": false
     }
   },
   "Zangetsu": {
