@@ -362,9 +362,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v3.2.0",
-      "last_sync_time": "2026-10-28 05:53:17",
-      "status": "success (最新)"
+      "last_sync_version": "v3.2.1",
+      "last_sync_time": "2026-11-25 21:53:19",
+      "status": "success"
     },
     {
       "name": "Zangetsu",
@@ -406,7 +406,7 @@
       "include_prerelease": false,
       "last_sync_version": "0.90.3",
       "last_sync_time": "2026-11-21 19:04:15",
-      "status": "success"
+      "status": "warning: 资产列表为空"
     },
     {
       "name": "KikoPlay",
@@ -1020,5 +1020,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-11-25 20:01:03"
+  "last_run_time": "2026-11-25 21:53:19"
 }
