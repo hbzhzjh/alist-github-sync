@@ -117,8 +117,8 @@
     }
   },
   "DeskBox": {
-    "version": "v1.6.0",
-    "last_sync": "2026-11-23 21:31:52",
+    "version": "v1.6.2",
+    "last_sync": "2026-11-25 20:01:03",
     "drives": {
       "宅仓库": true,
       "夸克": true,

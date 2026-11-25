@@ -488,8 +488,8 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v1.6.0",
-      "last_sync_time": "2026-11-23 21:31:52",
+      "last_sync_version": "v1.6.2",
+      "last_sync_time": "2026-11-25 20:01:03",
       "status": "success"
     },
     {
@@ -574,7 +574,7 @@
       "include_prerelease": false,
       "last_sync_version": "8.42.2",
       "last_sync_time": "2026-11-23 21:21:10",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "EasyBangumi",
@@ -679,7 +679,7 @@
       "include_prerelease": false,
       "last_sync_version": "v2.7.0",
       "last_sync_time": "2026-11-23 20:57:19",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "DLSS-NR-on-AMD",
@@ -1020,5 +1020,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-11-25 19:50:39"
+  "last_run_time": "2026-11-25 20:01:03"
 }
