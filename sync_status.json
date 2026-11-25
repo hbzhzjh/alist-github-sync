@@ -351,8 +351,8 @@
     }
   },
   "dsh-go": {
-    "version": "v1.3.0",
-    "last_sync": "2026-11-21 15:00:29",
+    "version": "v1.4.0",
+    "last_sync": "2026-11-25 18:45:23",
     "drives": {
       "宅仓库": true,
       "夸克": true
