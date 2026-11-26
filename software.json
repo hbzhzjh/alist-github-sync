@@ -782,8 +782,8 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v4.6",
-      "last_sync_time": "2026-11-25 19:50:39",
+      "last_sync_version": "v4.6.1",
+      "last_sync_time": "2026-11-26 19:16:30",
       "status": "success"
     },
     {
@@ -847,7 +847,7 @@
       "include_prerelease": false,
       "last_sync_version": "v1.4.0",
       "last_sync_time": "2026-11-25 18:45:23",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "YunX",
@@ -952,7 +952,7 @@
       "include_prerelease": false,
       "last_sync_version": "v0.6.70",
       "last_sync_time": "2026-11-25 18:26:46",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "so-novel",
@@ -1020,5 +1020,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-11-25 22:18:31"
+  "last_run_time": "2026-11-26 19:16:30"
 }
