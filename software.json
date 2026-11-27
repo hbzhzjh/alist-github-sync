@@ -950,9 +950,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v0.6.70",
-      "last_sync_time": "2026-11-25 18:26:46",
-      "status": "success (最新)"
+      "last_sync_version": "v0.6.71",
+      "last_sync_time": "2026-11-27 17:52:41",
+      "status": "success"
     },
     {
       "name": "so-novel",
@@ -1020,5 +1020,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-11-26 19:24:31"
+  "last_run_time": "2026-11-27 17:52:41"
 }
