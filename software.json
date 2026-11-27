@@ -572,9 +572,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "8.42.2",
-      "last_sync_time": "2026-11-23 21:21:10",
-      "status": "success (最新)"
+      "last_sync_version": "8.42.3",
+      "last_sync_time": "2026-11-27 18:34:21",
+      "status": "success"
     },
     {
       "name": "EasyBangumi",
@@ -1020,5 +1020,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-11-27 18:13:41"
+  "last_run_time": "2026-11-27 18:34:21"
 }
