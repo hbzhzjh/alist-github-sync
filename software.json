@@ -761,9 +761,9 @@
       "effective_disguise_mode": "none",
       "check_interval_hours": 0,
       "include_prerelease": false,
-      "last_sync_version": "v0.2.7",
-      "last_sync_time": "2026-10-31 22:59:04",
-      "status": "success (最新)"
+      "last_sync_version": "v0.3.0",
+      "last_sync_time": "2026-11-27 18:13:41",
+      "status": "success"
     },
     {
       "name": "Ghost-Downloader-3",
@@ -784,7 +784,7 @@
       "include_prerelease": false,
       "last_sync_version": "v4.6.1",
       "last_sync_time": "2026-11-26 19:16:30",
-      "status": "success"
+      "status": "success (最新)"
     },
     {
       "name": "maidong-ktv",
@@ -1020,5 +1020,5 @@
       "status": "success (最新)"
     }
   ],
-  "last_run_time": "2026-11-27 18:12:15"
+  "last_run_time": "2026-11-27 18:13:41"
 }
